@@ -1,0 +1,99 @@
+<nav class="navbar static">
+  <div class="top-bar">
+    <div class="pull-left logo-box">
+      <img class="logo" src="assets/logo.png">
+    </div>
+    <div class="app-name pull-left">Retro board</div>
+    <div class="logout-container pull-right border-left">
+      <div class="user-name">AB</div>
+    </div>
+    <div class="pull-right border-left topbar-padding notification-icon">
+      <i class="icon-outline-notification"></i>
+    </div>
+  </div>
+</nav>
+
+<div class="page-container row">
+  <div class="col-4">
+    <div class="panel">
+      <div class="panel-heading wentWell-status">
+        <h6 class="panel-title">What went well?</h6>
+      </div>
+      <div class="panel-body panel-body-padding">
+        <div class="feed-lists">
+          <div class="feed feed-list" *ngFor="let comment of commentList | async">
+            <div class="feed-content feed-list-content interaction">
+              <div class="circle pull-left">LD</div>
+              <div class="customer pull-left">
+                <span class="name">{{comment.data.userName}}</span>
+                <span class="days-ago">RPM - APEX Team</span>
+              </div>
+              <div class="pull-right">
+                  <span class="appkiticon icon-outline-edit feed-close-icon" title="Edit" aria-hidden="true"></span>
+                <span class="appkiticon icon-outline-circle-delete feed-close-icon" aria-hidden="true" title="Delete" (click)="deleteComments(comment.id)"></span>
+              </div>
+            </div>
+            <div class="feed-content feed-list-content padding0">
+              <div class="subject">{{comment.data.title}}</div>
+              <div class="description">{{comment.data.description}}</div>
+            </div>
+
+            <div class="feed-multi">
+              <div class="icons clearfix feed-list-icons">
+                <div class="right pull-right">
+                  <i class="tooltip-link appkiticon icon-outline-heart pull-left" title="" data-placement="top" data-toggle="tooltip" data-original-title="Like"
+                    data-container="body"></i>
+                  <span class="text pull-left">{{comment.data.likes}} Likes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="panel">
+      <div class="panel-heading wentWrong-status">
+        <h6 class="panel-title">What went wrong?</h6>
+      </div>
+      <div class="panel-body"></div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="panel">
+      <div class="panel-heading improve-status">
+        <h6 class="panel-title">What need to improve?</h6>
+      </div>
+      <div class="panel-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- <div>
+  <input type="text" [(ngModel)]="userName" name="title" placeholder="Username..">
+  <input type="text" [(ngModel)]="title" name="title" placeholder="Title..">
+  <textarea [(ngModel)]="comments" name="comments" placeholder="Your feedback.."></textarea>
+  <input type="submit" value="Add a Post" (click)="addComments()">
+</div> -->
+
+<!-- <ul *ngFor="let comment of commentList | async">
+  <li>
+    <strong>{{comment.data.userName}}</strong>
+    <br> {{comment.data.title}}(
+    <a href="#" (click)="deleteComments(comment.id)">delete</a>)
+    <br> {{comment.data.description}}
+  </li>
+</ul> -->
+<button class="button button-floating add-note-button" type="button" (click)="addComments()">
+  <i class="appkiticon icon-fill-plus"></i>
+</button>
+<div class="footer clearfix">
+  <div class="foot-left ellipsis" title="© 2017 PwC. All rights reserved. PwC refers to the US member firm of the PwC network or one of its subsidiaries or affiliates.">© 2017 PwC. All rights reserved. PwC refers to the US member firm of the PwC network or one of its subsidiaries or affiliates.</div>
+  <ul class="nav navbar-nav nav-footer pull-right">
+    <li>Full legal</li>
+    <li>Privacy policy</li>
+    <li>Data usage policy</li>
+    <li>Terms of use</li>
+  </ul>
+</div>

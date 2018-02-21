@@ -1,0 +1,23 @@
+<div id="login-samples" class="login-container login-page">
+  <div class="login-form col-xs-1,col-sm-4" novalidate>
+    <ul class="title-section">
+      <li class="pwc-logo">
+        <img src="assets/logo.png">
+      </li>
+      <li class="app-title title">Retro board</li>
+    </ul>
+    <div class="title-bottom-line"></div>
+    <div class="login-to-your-acount contentheader">Register to your retrospective</div>
+    <fieldset class="fieldset login-sample-fieldset">
+      <label class="form-label sample-guid-label">GUID</label>
+      <input type="text" class="text-input sample-guid-input" [(ngModel)]="guid" required>
+      <label class="form-label sample-password-label">Display name</label>
+      <input type="text" class="text-input sample-guid-input" [(ngModel)]="userDisplayName" required>
+      <label class="form-label sample-password-label">Project name</label>
+      <input type="text" class="text-input sample-guid-input" [(ngModel)]="projectName" required>
+    </fieldset>
+
+    <button id="sample-login-btn" type="submit" analytics-on="click" analytics-event="Log in" analytics-category="Custom Button"
+      analytics-label="Main Menu" class="button button-wide margin-top-3" (click)="registerUser()">Join meeting</button>
+  </div>
+</div>

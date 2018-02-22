@@ -5,11 +5,26 @@
     </div>
     <div class="app-name pull-left">Retro board</div>
     <div class="logout-container pull-right border-left">
-      <div class="user-name">AB</div>
+      <div class="user-name cursor-pointer" (click)="toggleSettingCntr($event)">AB</div>
     </div>
     <div class="pull-right border-left topbar-padding notification-icon">
       <i class="icon-outline-notification"></i>
     </div>
+    <div class="userSettingList ng-hide" [hidden]="!showSettingCntr">
+      <ul>
+          <li>
+              <div class="userDetails">
+                  <div class="user-image">AB</div>
+                  <div class="user-name">
+                      <p class="name">{{currentInfoUser.displayName}}</p>
+                  </div>
+              </div>
+          </li>
+          <li (click)="logoutUser()">
+              <i class="appkiticon icon-fill-logout logout-svg"></i>Logout
+          </li>
+      </ul>
+  </div>
   </div>
 </nav>
 

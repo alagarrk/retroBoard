@@ -11,6 +11,16 @@
   width: 100%;
 }
 
+.userSettingList ul li .logout-svg {
+  mask-size: cover;
+  -webkit-mask-size: cover;
+}
+
+.cursor-pointer
+{
+  cursor: pointer;
+}
+
 /* Feeds - Styles */
 
 .page-container .feed.feed-list {

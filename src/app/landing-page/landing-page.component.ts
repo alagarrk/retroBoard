@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router'
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
@@ -28,6 +28,7 @@ export class LandingPageComponent {
   commentsCol: AngularFirestoreCollection<Comment>;
   commentList: any;
   currentInfoUser: any = [];
+  showSettingCntr: boolean;
 
   // Three categories of data
   wentWellList: any = [];
@@ -38,6 +39,7 @@ export class LandingPageComponent {
   constructor(private afs: AngularFirestore, private modalService: BsModalService, private router: Router) {
   }
 
+  // Show add comment modal popup
   addComments() {
     const modal = this.modalService.show(AddCommentsModalComponent, { class: 'modal-popup-style' });
     (<AddCommentsModalComponent>modal.content).showAddCommentsModal(this.currentInfoUser);
@@ -69,10 +71,25 @@ export class LandingPageComponent {
         console.log("Error getting documents: ", error);
       });
   }
+  
   //Delete command
   deleteComments(cmdId) {
     this.afs.doc('comments/' + cmdId).delete();
   }
+
+  // Show/Hide setting dropdown
+  toggleSettingCntr($event: Event) {
+    $event.preventDefault();
+    $event.stopPropagation();  // <- that will stop propagation on lower layers
+    this.showSettingCntr = true;
+  }
+
+  // Logout user
+  logoutUser() {
+    sessionStorage.removeItem('currentUserInfo');
+    this.router.navigate(['login']);
+  }
+
   ngOnInit() {
     this.currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
     if (this.currentInfoUser) {
@@ -81,6 +98,10 @@ export class LandingPageComponent {
       this.router.navigate(['login']);
     }
     this.getCommentList();
+  }
+  // Listener to find document click and close logout container
+  @HostListener('document:click', ['$event']) clickedOutside($event) {
+    this.showSettingCntr = false;
   }
 
 }

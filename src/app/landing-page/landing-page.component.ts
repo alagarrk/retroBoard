@@ -24,17 +24,18 @@ interface cmdId extends Comment {
 export class LandingPageComponent {
   commentsCol: AngularFirestoreCollection<Comment>;
   commentList: any;
+  currentInfoUser: any=[];
   appTitle = "Retro board";
   userName: string;
   title: string;
   comments: string;
 
-  constructor(private afs: AngularFirestore, private modalService: BsModalService) {
+  constructor(private afs: AngularFirestore, private modalService: BsModalService,private router: Router) {
   }
 
   addComments() {
     const modal = this.modalService.show(AddCommentsModalComponent, { class: 'modal-popup-style' });
-    (<AddCommentsModalComponent>modal.content).showAddCommentsModal();
+    (<AddCommentsModalComponent>modal.content).showAddCommentsModal(this.currentInfoUser);
 
     (<AddCommentsModalComponent>modal.content).onClose.subscribe(result => {
       if (result) {
@@ -61,7 +62,13 @@ export class LandingPageComponent {
     this.afs.doc('comments/' + cmdId).delete();
   }
   ngOnInit() {
-    this.getCommentList()
+     this.currentInfoUser = JSON.parse(localStorage.getItem('currentUserInfo'));
+    if (this.currentInfoUser) {
+      this.router.navigate(['landing']);
+    } else {
+      this.router.navigate(['login']);
+    }
+    this.getCommentList();
   }
 
 }

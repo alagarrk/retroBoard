@@ -13,6 +13,7 @@ import { Subject } from 'rxjs/Subject';
 })
 export class AddCommentsModalComponent implements OnInit {
   comment: any = {}; // To pass values from view to component
+  currentInfoUser: any = [];
   public active: boolean = false;
   public userName: string;
   public guid: string;
@@ -34,13 +35,13 @@ export class AddCommentsModalComponent implements OnInit {
 
   }
   // showAddCommentsModal method - Trigger when modal opens
-  public showAddCommentsModal(): void {
+  public showAddCommentsModal(currentInfoUser): void {
+    this.currentInfoUser = currentInfoUser;
     this.active = true;
   }
 
   // Save comments method
   public saveComments(): void {
-    this.guid = 'akamuthura001';
     const currentInstance = this;
     this.afs.collection('comments').add(
       {
@@ -48,7 +49,7 @@ export class AddCommentsModalComponent implements OnInit {
         description: this.comment.commentDescription,
         likes: 0,
         category: this.selectedCategory,
-        userName: this.guid
+        userInfo: this.currentInfoUser
       })
       .then(function () {
         currentInstance.active = false;

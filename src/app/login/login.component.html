@@ -8,16 +8,45 @@
     </ul>
     <div class="title-bottom-line"></div>
     <div class="login-to-your-acount contentheader">Register to your retrospective</div>
-    <fieldset class="fieldset login-sample-fieldset">
+    <!-- <fieldset class="fieldset login-sample-fieldset">
       <label class="form-label sample-guid-label">GUID</label>
       <input type="text" class="text-input sample-guid-input" [(ngModel)]="guid" required>
       <label class="form-label sample-password-label">Display name</label>
       <input type="text" class="text-input sample-guid-input" [(ngModel)]="userDisplayName" required>
       <label class="form-label sample-password-label">Project name</label>
       <input type="text" class="text-input sample-guid-input" [(ngModel)]="projectName" required>
-    </fieldset>
 
-    <button id="sample-login-btn" type="submit" analytics-on="click" analytics-event="Log in" analytics-category="Custom Button"
-      analytics-label="Main Menu" class="button button-wide margin-top-3" (click)="registerUser()">Join meeting</button>
+    </fieldset> -->
+
+    <form name="loginForm" class="login-form-style" (ngSubmit)="f.form.valid && registerUser()" #f="ngForm" novalidate>
+      <label class="form-label">GUID
+        <span class="form-label-required">*</span>
+      </label>
+      <input type="text" class="text-input" [(ngModel)]="userInfo.guid" #guid="ngModel" placeholder="GUID" name="guid" [ngClass]="{ 'has-error': f.submitted && !guid.valid }"
+        required>
+
+      <label class="form-label">Display name
+        <span class="form-label-required">*</span>
+      </label>
+      <input type="text" class="text-input" [(ngModel)]="userInfo.userDisplayName" #userDisplayName="ngModel" placeholder="Nick/Display name"
+        name="userDisplayName" [ngClass]="{ 'has-error': f.submitted && !userDisplayName.valid }" required>
+
+      <label class="form-label">Select your role
+      </label>
+      <div class="dropdown dropdown-default">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="true">{{selectedRole.value}}</button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li *ngFor="let role of roleList" (click)="selectedRole=role">
+            <a>{{role.value}}</a>
+          </li>
+        </ul>
+        <i class="appkiticon icon-outline-down-chevron" data-toggle="dropdown"></i>
+      </div>
+      <div *ngIf="f.submitted && !guid.valid && !userDisplayName.valid" class="error-msg-style">Please enter required fields</div>
+      <button id="retro-login-btn" type="submit" analytics-on="click" analytics-event="Log in" analytics-category="Custom Button"
+        analytics-label="Main Menu" class="button button-wide margin-top-3">Join meeting</button>
+    </form>
+
   </div>
 </div>

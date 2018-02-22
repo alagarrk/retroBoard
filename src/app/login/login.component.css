@@ -7,3 +7,40 @@
   margin-bottom: 2rem;
 }
 
+.login-form-style * {
+  width: 100%;
+  margin: 0;
+}
+.login-form-style{
+  padding-top:0.5rem;
+}
+
+.login-form-style .dropdown>i {
+  width: 1rem;
+}
+
+.login-form-style .dropdown-toggle::after {
+  border: none;
+}
+
+.login-form-style .form-label {
+  margin: 1.25rem 0 0.5rem 0 !important;
+}
+
+.login-form-style #retro-login-btn
+{
+  margin-left: 0!important;
+  margin-bottom: 1rem!important;
+  margin-top: 1rem!important;
+}
+.has-error{
+  border:1px solid #E0301E;
+}
+.login-form-style a:last-child{
+  padding-bottom: 0.25rem!important;
+}
+
+.error-msg-style{
+  margin-top: .625rem!important;
+  color: #e0301e;
+}

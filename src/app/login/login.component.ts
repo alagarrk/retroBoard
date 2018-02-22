@@ -37,7 +37,7 @@ export class LoginComponent {
         'role': this.selectedRole
       }).then(function () { // Success - function
         // store user Info in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUserInfo', JSON.stringify({
+        sessionStorage.setItem('currentUserInfo', JSON.stringify({
           'guid': currentInstance.userInfo.guid,
           'displayName': currentInstance.userInfo.userDisplayName,
           'role': currentInstance.selectedRole
@@ -50,7 +50,7 @@ export class LoginComponent {
   }
 
   ngOnInit() {
-    const currentInfoUser = JSON.parse(localStorage.getItem('currentUserInfo'));
+    const currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
     if (currentInfoUser) {
       this.router.navigate(['landing']);
     } else {

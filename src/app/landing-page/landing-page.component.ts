@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router'
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
+
 import 'rxjs/add/operator/map';
+import * as _ from "lodash";
+
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AddCommentsModalComponent } from '../components/modals/add-comments-modal/add-comments-modal.component';
 
@@ -24,19 +27,20 @@ interface cmdId extends Comment {
 export class LandingPageComponent {
   commentsCol: AngularFirestoreCollection<Comment>;
   commentList: any;
-  currentInfoUser: any=[];
-  appTitle = "Retro board";
-  userName: string;
-  title: string;
-  comments: string;
+  currentInfoUser: any = [];
 
-  constructor(private afs: AngularFirestore, private modalService: BsModalService,private router: Router) {
+  // Three categories of data
+  wentWellList: any = [];
+  wentWrongList: any = [];
+  needToImproveList: any = [];
+
+  listObservable: any;
+  constructor(private afs: AngularFirestore, private modalService: BsModalService, private router: Router) {
   }
 
   addComments() {
     const modal = this.modalService.show(AddCommentsModalComponent, { class: 'modal-popup-style' });
     (<AddCommentsModalComponent>modal.content).showAddCommentsModal(this.currentInfoUser);
-
     (<AddCommentsModalComponent>modal.content).onClose.subscribe(result => {
       if (result) {
         this.getCommentList();
@@ -46,15 +50,23 @@ export class LandingPageComponent {
 
   //Get command list
   getCommentList() {
-    this.commentsCol = this.afs.collection('comments');
-    // To retrive list with id and data
-    this.commentList = this.commentsCol.snapshotChanges()
-      .map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Comment;
-          const id = a.payload.doc.id;
-          return { id, data };
+    const _this = this;
+    this.wentWellList = [];
+    this.wentWrongList = [];
+    this.needToImproveList = [];
+    // Get data from comments - Collections // Also we can use where condition to filter data
+    this.afs.firestore.collection('comments')
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          const data = doc.data();
+          data.id = doc.id;
+          _this[data['category']['name']].push(data);
         });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
       });
   }
   //Delete command
@@ -62,7 +74,7 @@ export class LandingPageComponent {
     this.afs.doc('comments/' + cmdId).delete();
   }
   ngOnInit() {
-     this.currentInfoUser = JSON.parse(localStorage.getItem('currentUserInfo'));
+    this.currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
     if (this.currentInfoUser) {
       this.router.navigate(['landing']);
     } else {

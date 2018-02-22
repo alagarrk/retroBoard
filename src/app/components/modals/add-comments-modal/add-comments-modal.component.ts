@@ -25,7 +25,7 @@ export class AddCommentsModalComponent implements OnInit {
   public constructor(
     private _bsModalRef: BsModalRef, private afs: AngularFirestore
   ) {
-    this.categoryList = [{ name: 'what-went-well', value: "What went well?" }, { name: 'what-went-wrong', value: "What went wrong?" }, { name: 'what-need-to-improve', value: "What need to improve?" }];
+    this.categoryList = [{ name: 'wentWellList', value: "What went well?" }, { name: 'wentWrongList', value: "What went wrong?" }, { name: 'needToImproveList', value: "What need to improve?" }];
     this.selectedCategory = this.categoryList[0];
   }
 

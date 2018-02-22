@@ -3,11 +3,14 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router'
-
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
+
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 import { AppComponent } from './app.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import * as _ from "lodash";
 
 import { LoginComponent } from './login/login.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -40,6 +43,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule, HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
     AngularFirestoreModule,
     RouterModule.forRoot(appRoutes),
     ModalModule.forRoot()

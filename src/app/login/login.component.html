@@ -24,12 +24,14 @@
       </label>
       <input type="text" class="text-input" [(ngModel)]="userInfo.guid" #guid="ngModel" placeholder="GUID" name="guid" [ngClass]="{ 'has-error': f.submitted && !guid.valid }"
         required>
+      <div *ngIf="f.submitted && !guid.valid" class="error-msg-style">Please enter GUID</div>
 
       <label class="form-label">Display name
         <span class="form-label-required">*</span>
       </label>
       <input type="text" class="text-input" [(ngModel)]="userInfo.userDisplayName" #userDisplayName="ngModel" placeholder="Nick/Display name"
         name="userDisplayName" [ngClass]="{ 'has-error': f.submitted && !userDisplayName.valid }" required>
+      <div *ngIf="f.submitted && !userDisplayName.valid" class="error-msg-style">Please enter your display name</div>
 
       <label class="form-label">Select your role
       </label>
@@ -43,10 +45,9 @@
         </ul>
         <i class="appkiticon icon-outline-down-chevron" data-toggle="dropdown"></i>
       </div>
-      <div *ngIf="f.submitted && !guid.valid && !userDisplayName.valid" class="error-msg-style">Please enter required fields</div>
+
       <button id="retro-login-btn" type="submit" analytics-on="click" analytics-event="Log in" analytics-category="Custom Button"
         analytics-label="Main Menu" class="button button-wide margin-top-3">Join meeting</button>
     </form>
-
   </div>
 </div>

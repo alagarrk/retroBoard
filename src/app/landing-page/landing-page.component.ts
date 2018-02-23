@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import * as _ from "lodash";
 
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { AddCommentsModalComponent } from '../components/modals/add-comments-modal/add-comments-modal.component';
+import { ManageCommentsModalComponent } from '../components/modals/manage-comments-modal/manage-comments-modal.component';
 
 interface Comment {
   userName: string;
@@ -39,17 +39,6 @@ export class LandingPageComponent {
   constructor(private afs: AngularFirestore, private modalService: BsModalService, private router: Router) {
   }
 
-  // Show add comment modal popup
-  addComments() {
-    const modal = this.modalService.show(AddCommentsModalComponent, { class: 'modal-popup-style' });
-    (<AddCommentsModalComponent>modal.content).showAddCommentsModal(this.currentInfoUser);
-    (<AddCommentsModalComponent>modal.content).onClose.subscribe(result => {
-      if (result) {
-        this.getCommentList();
-      }
-    });
-  }
-
   //Get command list
   getCommentList() {
     const _this = this;
@@ -71,10 +60,32 @@ export class LandingPageComponent {
         console.log("Error getting documents: ", error);
       });
   }
-  
+
+  // Show add comment modal popup
+  addComments() {
+    const modal = this.modalService.show(ManageCommentsModalComponent, { class: 'modal-popup-style' });
+    (<ManageCommentsModalComponent>modal.content).showAddCommentsModal(this.currentInfoUser);
+    (<ManageCommentsModalComponent>modal.content).onClose.subscribe(result => {
+      if (result) {
+        this.getCommentList();
+      }
+    });
+  }
+
+  //Edit commands
+  editComments(selectedComment) {
+    const modal = this.modalService.show(ManageCommentsModalComponent, { class: 'modal-popup-style' });
+    (<ManageCommentsModalComponent>modal.content).editCommentsModal(this.currentInfoUser,selectedComment);
+    (<ManageCommentsModalComponent>modal.content).onClose.subscribe(result => {
+      if (result) {
+        this.getCommentList();
+      }
+    });
+  }
   //Delete command
   deleteComments(cmdId) {
     this.afs.doc('comments/' + cmdId).delete();
+    this.getCommentList();
   }
 
   // Show/Hide setting dropdown

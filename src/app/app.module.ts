@@ -14,7 +14,7 @@ import * as _ from "lodash";
 
 import { LoginComponent } from './login/login.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { AddCommentsModalComponent } from './components/modals/add-comments-modal/add-comments-modal.component';
+import { ManageCommentsModalComponent } from './components/modals/manage-comments-modal/manage-comments-modal.component';
 
 // Firebase credentials - Setup
 var firebaseConfig = {
@@ -37,7 +37,7 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     LandingPageComponent,
-    AddCommentsModalComponent
+    ManageCommentsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +54,7 @@ const appRoutes: Routes = [
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    AddCommentsModalComponent
+    ManageCommentsModalComponent
   ]
 })
 export class AppModule { }

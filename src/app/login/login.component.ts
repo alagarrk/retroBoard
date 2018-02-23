@@ -20,8 +20,8 @@ export class LoginComponent {
   selectedRole: any = {};
 
   constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router) {
-    this.roleList = [{ name: 'team-lead', value: "Team lead" }, { name: 'front-end', value: "Front end developer" }, { name: 'back-end', value: "Back end developer" },
-    { name: 'db', value: "Database developer" }, { name: 'scrum-master', value: "Scrum master" }, { name: 'product-owner', value: "Product owner" }, { name: 'manager', value: "Manager" }];
+    this.roleList = [{ name: 'team-lead', value: "Team lead", roleId: 2 }, { name: 'front-end', value: "Front end developer", roleId: 2 }, { name: 'back-end', value: "Back end developer", roleId: 2 },
+    { name: 'db', value: "Database developer", roleId: 2 }, { name: 'scrum-master', value: "Scrum master", roleId: 1 }, { name: 'product-owner', value: "Product owner", roleId: 2 }, { name: 'manager', value: "Manager", roleId: 2 }];
     this.selectedRole = this.roleList[0];
   }
 

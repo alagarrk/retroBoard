@@ -16,8 +16,7 @@
   -webkit-mask-size: cover;
 }
 
-.cursor-pointer
-{
+.cursor-pointer {
   cursor: pointer;
 }
 
@@ -25,9 +24,9 @@
 
 .page-container .feed.feed-list {
   border: 1px solid #fff;
-    margin: 0.5rem 0;
-    padding: 1rem;
-    box-shadow: 0 0.0625rem 0.1875rem 0 rgba(49,57,63,.2), 0 0 0 0.0625rem rgba(49,57,63,.05);
+  margin: 0.5rem 0;
+  padding: 1rem;
+  box-shadow: 0 0.0625rem 0.1875rem 0 rgba(49, 57, 63, .2), 0 0 0 0.0625rem rgba(49, 57, 63, .05);
 }
 
 .page-container .padding0 {
@@ -71,7 +70,7 @@
   height: 1.2rem;
   width: 1.2rem;
   margin-top: 0.3rem;
-  margin-left:0.6rem;
+  margin-left: 0.6rem;
 }
 
 .wentWell-status {
@@ -90,4 +89,11 @@
 .wentWrong-status.panel-heading .panel-title,
 .improve-status.panel-heading .panel-title {
   color: white;
+}
+
+.no-feed-found {
+  height: 14rem;
+  line-height: 14rem;
+  text-align: center;
+  color: #9999;
 }

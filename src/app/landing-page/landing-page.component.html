@@ -12,19 +12,19 @@
     </div>
     <div class="userSettingList ng-hide" [hidden]="!showSettingCntr">
       <ul>
-          <li>
-              <div class="userDetails">
-                  <div class="user-image">AB</div>
-                  <div class="user-name">
-                      <p class="name">{{currentInfoUser.displayName}}</p>
-                  </div>
-              </div>
-          </li>
-          <li (click)="logoutUser()">
-              <i class="appkiticon icon-fill-logout logout-svg"></i>Logout
-          </li>
+        <li>
+          <div class="userDetails">
+            <div class="user-image">AB</div>
+            <div class="user-name">
+              <p class="name">{{currentInfoUser.displayName}}</p>
+            </div>
+          </div>
+        </li>
+        <li (click)="logoutUser()">
+          <i class="appkiticon icon-fill-logout logout-svg"></i>Logout
+        </li>
       </ul>
-  </div>
+    </div>
   </div>
 </nav>
 
@@ -35,17 +35,17 @@
         <h6 class="panel-title">What went well?</h6>
       </div>
       <div class="panel-body panel-body-padding">
-        <div class="feed-lists">
-          <div class="feed feed-list" *ngFor="let wentWell of wentWellList">
+        <div class="feed-lists" *ngIf="wentWellList.length>0">
+          <div class="feed feed-list" *ngFor="let wentWell of wentWellList" >
             <div class="feed-content feed-list-content interaction">
               <div class="circle pull-left">LD</div>
               <div class="customer pull-left">
                 <span class="name">{{wentWell.userInfo.displayName}}</span>
                 <span class="days-ago">{{wentWell.userInfo.role.value}}</span>
               </div>
-              <div class="pull-right">
-                <span class="appkiticon icon-outline-edit feed-close-icon" title="Edit" aria-hidden="true"></span>
-                <span class="appkiticon icon-outline-circle-delete feed-close-icon" aria-hidden="true" title="Delete" (click)="deleteComments(comment.id)"></span>
+              <div class="pull-right" *ngIf="wentWell.userInfo.roleId === 1 || wentWell.userInfo.guid === currentInfoUser.guid">
+                <span class="appkiticon icon-outline-edit feed-close-icon" title="Edit" aria-hidden="true" (click)="editComments(wentWell)"></span>
+                <span class="appkiticon icon-outline-circle-delete feed-close-icon" aria-hidden="true" title="Delete" (click)="deleteComments(wentWell.id)"></span>
               </div>
             </div>
             <div class="feed-content feed-list-content padding0">
@@ -64,6 +64,7 @@
             </div>
           </div>
         </div>
+        <div class="no-feed-found" *ngIf="wentWellList.length===0"> No comments found</div>
       </div>
     </div>
   </div>
@@ -73,7 +74,7 @@
         <h6 class="panel-title">What went wrong?</h6>
       </div>
       <div class="panel-body panel-body-padding">
-        <div class="feed-lists">
+        <div class="feed-lists" *ngIf="wentWrongList.length>0">
           <div class="feed feed-list" *ngFor="let wentWrong of wentWrongList">
             <div class="feed-content feed-list-content interaction">
               <div class="circle pull-left">LD</div>
@@ -81,8 +82,8 @@
                 <span class="name">{{wentWrong.userInfo.displayName}}</span>
                 <span class="days-ago">{{wentWrong.userInfo.role.value}}</span>
               </div>
-              <div class="pull-right">
-                <span class="appkiticon icon-outline-edit feed-close-icon" title="Edit" aria-hidden="true"></span>
+              <div class="pull-right" *ngIf="wentWrong.userInfo.roleId === 1 || wentWrong.userInfo.guid === currentInfoUser.guid">
+                <span class="appkiticon icon-outline-edit feed-close-icon" title="Edit" aria-hidden="true" (click)="editComments(wentWrong)"></span>
                 <span class="appkiticon icon-outline-circle-delete feed-close-icon" aria-hidden="true" title="Delete" (click)="deleteComments(comment.id)"></span>
               </div>
             </div>
@@ -101,7 +102,9 @@
               </div>
             </div>
           </div>
+         
         </div>
+        <div class="no-feed-found" *ngIf="wentWrongList.length===0"> No comments found</div>
       </div>
     </div>
   </div>
@@ -111,7 +114,7 @@
         <h6 class="panel-title">What need to improve?</h6>
       </div>
       <div class="panel-body panel-body-padding">
-        <div class="feed-lists">
+        <div class="feed-lists" *ngIf="needToImproveList.length>0">
           <div class="feed feed-list" *ngFor="let needToImprove of needToImproveList">
             <div class="feed-content feed-list-content interaction">
               <div class="circle pull-left">LD</div>
@@ -119,9 +122,9 @@
                 <span class="name">{{needToImprove.userInfo.displayName}}</span>
                 <span class="days-ago">{{needToImprove.userInfo.role.value}}</span>
               </div>
-              <div class="pull-right">
-                <span class="appkiticon icon-outline-edit feed-close-icon" title="Edit" aria-hidden="true"></span>
-                <span class="appkiticon icon-outline-circle-delete feed-close-icon" aria-hidden="true" title="Delete" (click)="deleteComments(comment.id)"></span>
+              <div class="pull-right" *ngIf="needToImprove.userInfo.roleId === 1 || needToImprove.userInfo.guid === currentInfoUser.guid">
+                <span class="appkiticon icon-outline-edit feed-close-icon" title="Edit" aria-hidden="true" (click)="editComments(needToImprove)"></span>
+                <span class="appkiticon icon-outline-circle-delete feed-close-icon" aria-hidden="true" title="Delete" (click)="deleteComments(needToImprove.id)"></span>
               </div>
             </div>
             <div class="feed-content feed-list-content padding0">
@@ -139,7 +142,9 @@
               </div>
             </div>
           </div>
+          
         </div>
+        <div class="no-feed-found" *ngIf="needToImproveList.length===0"> No comments found</div>
       </div>
     </div>
   </div>

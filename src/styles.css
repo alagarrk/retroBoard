@@ -1,6 +1,6 @@
 .modal-dialog.modal-popup-style .modal-content {
   max-width: 45rem;
-  height: 30rem;
+  max-height: 31rem;
 }
 
 .navbar {

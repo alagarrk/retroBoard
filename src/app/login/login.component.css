@@ -33,6 +33,7 @@
   margin-left: 0!important;
   margin-bottom: 1rem!important;
   margin-top: 1rem!important;
+  outline: 0;
 }
 .has-error{
   border:1px solid #E0301E;
@@ -42,6 +43,7 @@
 }
 
 .error-msg-style{
-  margin-top: .625rem!important;
+  margin: 2px 0 5px 0!important;
   color: #e0301e;
+  font-size: 12px;
 }

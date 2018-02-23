@@ -1,0 +1,44 @@
+<form name="commentsForm" class="comments-form-style" (ngSubmit)="f.form.valid && saveComments()" #f="ngForm" novalidate>
+  <div class="modal-header">
+    <h4 class="modal-title">Add your comments</h4>
+    <button type="button" class="close" data-dismiss="modal" (click)="hideConfirmationModal()">
+      <i class="appkiticon icon-outline-close" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="modal-body comment-modal-body">
+
+    <label class="form-label">Category
+      <span class="form-label-required">*</span>
+    </label>
+    <div class="dropdown dropdown-default">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="true">{{selectedCategory.value}}</button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li *ngFor="let category of categoryList" (click)="selectedCategory=category">
+          <a>{{category.value}}</a>
+        </li>
+      </ul>
+      <i class="appkiticon icon-outline-down-chevron" data-toggle="dropdown"></i>
+    </div>
+
+    <label class="form-label">Title
+      <span class="form-label-required">*</span>
+    </label>
+    <input type="text" class="text-input" [(ngModel)]="comment.commentTitle" #commentTitle="ngModel" placeholder="User story / Task / Dev Team"
+      name="commentTitle" [ngClass]="{ 'has-error': f.submitted && !commentTitle.valid }" required>
+    <div *ngIf="f.submitted && !commentTitle.valid" class="error-msg-style">Please enter title</div>
+    <label class="form-label">Description
+      <span class="form-label-required">*</span>
+    </label>
+    <textarea class="textarea" maxtextlength="150" [(ngModel)]="comment.commentDescription" #commentDescription="ngModel" name="commentDescription"
+      placeholder="How do you feel.?" [ngClass]="{'has-error': f.submitted && !commentDescription.valid }" required></textarea>
+    <div *ngIf="f.submitted && !commentDescription.valid" class="error-msg-style">Please enter description</div>
+  </div>
+  <div class="modal-footer">
+
+    <div class="buttons-combined pull-right">
+      <button class="button button-secondary" type="button" data-dismiss="modal" (click)="onCancel()">Cancel</button>
+      <button class="button button-primary" type="submit" data-dismiss="modal">Save</button>
+    </div>
+  </div>
+</form>

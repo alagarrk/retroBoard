@@ -1,0 +1,24 @@
+.comment-modal-body {
+  margin-bottom: 0.5rem;
+}
+.comment-modal-body .dropdown
+{
+  margin-bottom:0rem!important;
+}
+.dropdown-toggle::after {
+  border: 0px !important;
+}
+
+.comment-modal-body .text-input{
+  margin-bottom:0rem!important;
+}
+
+.has-error{
+  border:1px solid #E0301E;
+}
+
+.error-msg-style{
+  margin: 2px 0 5px 0!important;
+  color: #e0301e;
+  font-size: 12px;
+}

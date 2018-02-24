@@ -71,6 +71,7 @@
   width: 1.2rem;
   margin-top: 0.3rem;
   margin-left: 0.6rem;
+  cursor: pointer;
 }
 
 .wentWell-status {
@@ -83,6 +84,10 @@
 
 .improve-status {
   background: #FFB600;
+}
+
+.hightLight-icon{
+  background: #d04a02!important;
 }
 
 .wentWell-status.panel-heading .panel-title,

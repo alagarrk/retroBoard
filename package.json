@@ -26,11 +26,10 @@
     "core-js": "^2.4.1",
     "firebase": "^4.9.1",
     "jquery": "^2.2.4",
-    "lodash": "^4.17.5",
+    "lodash": "",
     "ngx-bootstrap": "^2.0.2",
     "rxjs": "^5.5.6",
-    "zone.js": "^0.8.19",
-    "lodash":""
+    "zone.js": "^0.8.19"
   },
   "devDependencies": {
     "@angular/cli": "1.6.8",
@@ -39,21 +38,22 @@
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
+    "bootstrap": "4.0.0-alpha.6",
     "codelyzer": "^4.0.1",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
+    "jquery": "^2.2.4",
     "karma": "~2.0.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "lodash": "",
+    "node-sass": "^4.3.0",
     "protractor": "~5.1.2",
+    "tether": "^1.4.3",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "~2.5.3",
-    "jquery": "^2.2.4",
-    "node-sass": "^4.3.0",
-    "bootstrap": "4.0.0-alpha.6",
-    "lodash":""
+    "typescript": "~2.5.3"
   }
 }

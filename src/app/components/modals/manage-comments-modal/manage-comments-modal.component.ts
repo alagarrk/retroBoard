@@ -60,6 +60,7 @@ export class ManageCommentsModalComponent implements OnInit {
   // Save comments method
   public saveComments(): void {
     const currentInstance = this;
+    this._bsModalRef.hide();
     if (!this.isEditMode) {
       // To add new comments
       this.afs.collection('comments').add(
@@ -67,31 +68,33 @@ export class ManageCommentsModalComponent implements OnInit {
           title: this.comment.commentTitle,
           description: this.comment.commentDescription,
           likes: 0,
+          currentLikeStatus: {
+            userLikesList: [], selfStatus: false
+          },
           category: this.selectedCategory,
           userInfo: this.currentInfoUser
         })
         .then(function () {
           currentInstance.active = false;
           currentInstance.onClose.next(true);
-          currentInstance._bsModalRef.hide();
+
         })
         .catch(function (error) {
           console.error("Error writing document: ", error);
         });
     }
     else {
-       // To update comments
-      this.afs.collection("comments").doc(this.selectedComment.id).set({
+      // To update comments
+      this.afs.collection("comments").doc(this.selectedComment.id).update({
         title: this.comment.commentTitle,
         description: this.comment.commentDescription,
-        likes: 0,
         category: this.selectedCategory,
         userInfo: this.currentInfoUser
       })
         .then(function () {
           currentInstance.active = false;
           currentInstance.onClose.next(true);
-          currentInstance._bsModalRef.hide();
+          //currentInstance._bsModalRef.hide();
         })
         .catch(function (error) {
           console.error("Error writing document: ", error);

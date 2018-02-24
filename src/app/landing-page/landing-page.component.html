@@ -1,32 +1,4 @@
-<nav class="navbar static">
-  <div class="top-bar">
-    <div class="pull-left logo-box">
-      <img class="logo" src="assets/logo.png">
-    </div>
-    <div class="app-name pull-left">Retro board</div>
-    <div class="logout-container pull-right border-left">
-      <div class="user-name cursor-pointer" (click)="toggleSettingCntr($event)">AB</div>
-    </div>
-    <div class="pull-right border-left topbar-padding notification-icon">
-      <i class="icon-outline-notification"></i>
-    </div>
-    <div class="userSettingList ng-hide" [hidden]="!showSettingCntr">
-      <ul>
-        <li>
-          <div class="userDetails">
-            <div class="user-image">AB</div>
-            <div class="user-name">
-              <p class="name">{{currentInfoUser.displayName}}</p>
-            </div>
-          </div>
-        </li>
-        <li (click)="logoutUser()">
-          <i class="appkiticon icon-fill-logout logout-svg"></i>Logout
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<app-header></app-header>
 
 <div class="page-container row">
   <div class="col-4">
@@ -159,12 +131,4 @@
 <button class="button button-floating add-note-button" type="button" (click)="addComments()" tooltip="Add new comment" aria-hidden="true">
   <i class="appkiticon icon-fill-plus"></i>
 </button>
-<div class="footer clearfix">
-  <div class="foot-left ellipsis" title="© 2017 PwC. All rights reserved. PwC refers to the US member firm of the PwC network or one of its subsidiaries or affiliates.">© 2017 PwC. All rights reserved. PwC refers to the US member firm of the PwC network or one of its subsidiaries or affiliates.</div>
-  <ul class="nav navbar-nav nav-footer pull-right">
-    <li>Full legal</li>
-    <li>Privacy policy</li>
-    <li>Data usage policy</li>
-    <li>Terms of use</li>
-  </ul>
-</div>
+<app-footer></app-footer>

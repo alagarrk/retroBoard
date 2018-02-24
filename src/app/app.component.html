@@ -1,2 +1,9 @@
 
 <router-outlet></router-outlet>
+<div class="loading-modal loading-modal-wrapper" [hidden]="!appVariable.showLoading">
+    <div class="global-loader-div default-style darker">
+        <div class="loading-title">Loading...</div>
+        <div class="global-loader"></div>
+        <div class="loading-end">Please wait!</div>
+    </div>
+</div>

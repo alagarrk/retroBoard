@@ -1,0 +1,77 @@
+<app-header></app-header>
+<div class="page-container row">
+  <div class="panels-wrapper clearfix">
+    <div class="row ">
+      <div class="col-12 col-md-4">
+        <div class="panel min-width-no">
+          <div class="panel-heading">
+            <h6 class="panel-title">Schedule retro meeting</h6>
+          </div>
+          <div class="panel-body"></div>
+        </div>
+      </div>
+      <div class="col-11 col-md-8">
+        <div class="panel">
+          <div class="panel-heading schedule-cntr-header">
+            <h6 class="panel-title">Schedule retro meeting</h6>
+          </div>
+          <div class="panel-body schedule-cntr">
+            <div class="col-md-8">
+              <div class="clearfix field-div">
+                <div class="pull-left">
+                  <label class="form-label">Project name</label>
+                </div>
+                <div class="pull-right">
+                  <div class="dropdown dropdown-default">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="true">{{selectedProject.displayName}}</button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li *ngFor="let project of projectList" (click)="selectedProject=project">
+                        <a>{{project.displayName}}</a>
+                      </li>
+                    </ul>
+                    <i class="appkiticon icon-outline-down-chevron" data-toggle="dropdown"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix field-div">
+                <div class="pull-left">
+                  <label class="form-label">Current sprint</label>
+                </div>
+                <div class="pull-right">
+                  <div class="dropdown dropdown-default">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="true">{{selectedSprint.displayName}}</button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li *ngFor="let sprint of sprintList" (click)="selectedSprint=sprint">
+                        <a>{{sprint.displayName}}</a>
+                      </li>
+                    </ul>
+                    <i class="appkiticon icon-outline-down-chevron" data-toggle="dropdown"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="clearfix field-div" *ngIf="showRetroLink">
+                <div class="pull-left retroLink-text">
+                  <label class="form-label">Retrospective Link</label>
+                </div>
+                <div class="pull-left retro-textBox">
+                    <input type="text" class="text-input retro-textBox-width" [disabled]="true" [(ngModel)]="retroLink" 
+                    name="retroLink">
+                </div>
+              </div>
+            </div>
+            <div class="buttons-combined col-md-12 btn-cntr">
+              <button class="button button-primary" type="submit" (click)="scheduleMeeting()">Schedule meeting</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

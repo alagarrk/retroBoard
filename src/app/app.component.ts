@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { AppSharedService } from '../shared.service';
 
 
 @Component({
@@ -13,11 +15,21 @@ import 'rxjs/add/operator/map';
 
 export class AppComponent {
   appTitle = "Retro board";
-  constructor(private router: Router) {
+  route: string;
+  // constructor(private router: Router,private appVariable: AppSharedService) {
+  //   this.appVariable.showLoading = false;
+  // }
+
+  constructor(private router: Router, private appVariable: AppSharedService, private location: Location) {
+    this.appVariable.showLoading = false;
   }
 
-  ngOnInit() {
-    this.router.navigate(['/login']);
 
+  ngOnInit() {
+      if (this.location.path() === '/admin') {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/login']);
+      }
   }
 }

@@ -1,0 +1,32 @@
+<nav class="navbar static">
+  <div class="top-bar">
+    <div class="pull-left logo-box">
+      <img class="logo" src="assets/logo.png">
+    </div>
+    <div class="app-name pull-left">Retro board</div>
+    <div class="logout-container pull-right border-left">
+      <div class="user-name cursor-pointer" (click)="toggleSettingCntr($event)">AB</div>
+    </div>
+    <div class="pull-right border-left topbar-padding notification-icon">
+      <i class="icon-outline-notification"></i>
+    </div>
+    <div class="userSettingList ng-hide" [hidden]="!showSettingCntr">
+      <ul>
+        <li>
+          <div class="userDetails">
+            <div class="user-image">AB</div>
+            <div class="user-name">
+              <p class="name">
+                <span *ngIf="currentInfoUser">{{currentInfoUser.displayName}}</span>
+                <span *ngIf="!currentInfoUser">Admin</span>
+              </p>
+            </div>
+          </div>
+        </li>
+        <li (click)="logoutUser()">
+          <i class="appkiticon icon-fill-logout logout-svg"></i>Logout
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

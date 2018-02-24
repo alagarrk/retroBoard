@@ -29,7 +29,7 @@ export class LandingPageComponent {
   commentsCol: AngularFirestoreCollection<Comment>;
   commentList: any;
   currentInfoUser: any = [];
-  showSettingCntr: boolean;
+ 
 
   // Three categories of data
   wentWellList: any = [];
@@ -117,12 +117,7 @@ export class LandingPageComponent {
       });
   }
 
-  // Show/Hide setting dropdown
-  toggleSettingCntr($event: Event) {
-    $event.preventDefault();
-    $event.stopPropagation();  // <- that will stop propagation on lower layers
-    this.showSettingCntr = true;
-  }
+  
 
   // Logout user
   logoutUser() {
@@ -154,9 +149,5 @@ export class LandingPageComponent {
           _this[data['category']['name']].push(data);
         });
       });
-  }
-  // Listener to find document click and close logout container
-  @HostListener('document:click', ['$event']) clickedOutside($event) {
-    this.showSettingCntr = false;
   }
 }

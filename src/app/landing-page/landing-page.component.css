@@ -5,11 +5,7 @@
   height: calc(100vh - 3.6rem - 5.2rem);
 }
 
-.footer {
-  min-width: 51.875rem;
-  float: left;
-  width: 100%;
-}
+
 
 .userSettingList ul li .logout-svg {
   mask-size: cover;

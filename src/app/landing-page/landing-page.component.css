@@ -5,8 +5,6 @@
   height: calc(100vh - 3.6rem - 5.2rem);
 }
 
-
-
 .userSettingList ul li .logout-svg {
   mask-size: cover;
   -webkit-mask-size: cover;
@@ -70,6 +68,42 @@
   cursor: pointer;
 }
 
+.add-commment-icon {
+  align-self: center;
+  background-color: white;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.add-comment-cntr .comment-textBox-cntr {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.instruction-text {
+  color: #d04a02;
+  margin-top: 5px;
+}
+
+.comment-close-icon {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  -webkit-mask-size: 100%;
+  right: 0.6rem;
+  top: 0.5rem;
+  background: #666;
+  cursor: pointer;
+}
+
+.posRelative {
+  position: relative;
+}
+
+.comment-textBox {
+  padding-right: 1.8rem;
+}
+
 .wentWell-status {
   background: #006652;
 }
@@ -82,8 +116,8 @@
   background: #FFB600;
 }
 
-.hightLight-icon{
-  background: #d04a02!important;
+.hightLight-icon {
+  background: #d04a02 !important;
 }
 
 .wentWell-status.panel-heading .panel-title,

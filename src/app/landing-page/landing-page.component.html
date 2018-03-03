@@ -5,8 +5,21 @@
     <div class="panel">
       <div class="panel-heading wentWell-status">
         <h6 class="panel-title">What went well?</h6>
+        <span class="appkiticon icon-outline-circle-plus add-commment-icon" title="Add comments" (click)="toggleCommentTxtbx(0)"></span>
       </div>
       <div class="panel-body panel-body-padding">
+        <div class="add-comment-cntr" [hidden]="!showAddCommentBox.wentWellList">
+          <form class="comment-textBox-cntr" #f="ngForm" (keyup.enter)="addComments($event,0)">
+            <div class="input-with-remain posRelative">
+              <span class="appkiticon icon-outline-circle-delete comment-close-icon" title="Close" (click)="toggleCommentTxtbx(0)"></span>
+              <textarea class="textarea comment-textBox" name="commentDescription" maxtextlength="150" [(ngModel)]="comment.wentWellList.commentDescription" #commentDescription="ngModel"
+                placeholder="Enter your comments" required></textarea>
+              <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
+                *Press enter to save your comments
+              </div>
+            </div>
+          </form>
+        </div>
         <div class="feed-lists" *ngIf="wentWellList.length>0">
           <div class="feed feed-list" *ngFor="let wentWell of wentWellList">
             <div class="feed-content feed-list-content interaction">
@@ -46,8 +59,21 @@
     <div class="panel">
       <div class="panel-heading wentWrong-status">
         <h6 class="panel-title">What went wrong?</h6>
+        <span class="appkiticon icon-outline-circle-plus add-commment-icon" title="Add comments" (click)="toggleCommentTxtbx(1)"></span>
       </div>
       <div class="panel-body panel-body-padding">
+          <div class="add-comment-cntr" [hidden]="!showAddCommentBox.wentWrongList">
+              <form class="comment-textBox-cntr" #f="ngForm" (keyup.enter)="addComments($event,1)">
+                <div class="input-with-remain posRelative">
+                  <span class="appkiticon icon-outline-circle-delete comment-close-icon" title="Close" (click)="toggleCommentTxtbx(1)"></span>
+                  <textarea class="textarea comment-textBox" name="commentDescription" maxtextlength="150" [(ngModel)]="comment.wentWrongList.commentDescription" #commentDescription="ngModel"
+                    placeholder="Enter your comments" required></textarea>
+                  <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
+                    *Press enter to save your comments
+                  </div>
+                </div>
+              </form>
+            </div>
         <div class="feed-lists" *ngIf="wentWrongList.length>0">
           <div class="feed feed-list" *ngFor="let wentWrong of wentWrongList">
             <div class="feed-content feed-list-content interaction">
@@ -88,8 +114,21 @@
     <div class="panel">
       <div class="panel-heading improve-status">
         <h6 class="panel-title">What need to improve?</h6>
+        <span class="appkiticon icon-outline-circle-plus add-commment-icon" title="Add comments" (click)="toggleCommentTxtbx(2)"></span>
       </div>
       <div class="panel-body panel-body-padding">
+          <div class="add-comment-cntr" [hidden]="!showAddCommentBox.needToImproveList">
+              <form class="comment-textBox-cntr" #f="ngForm" (keyup.enter)="addComments($event,2)">
+                <div class="input-with-remain posRelative">
+                  <span class="appkiticon icon-outline-circle-delete comment-close-icon" title="Close" (click)="toggleCommentTxtbx(2)"></span>
+                  <textarea class="textarea comment-textBox" name="commentDescription" maxtextlength="150" [(ngModel)]="comment.needToImproveList.commentDescription" #commentDescription="ngModel"
+                    placeholder="Enter your comments" required></textarea>
+                  <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
+                    *Press enter to save your comments
+                  </div>
+                </div>
+              </form>
+            </div>
         <div class="feed-lists" *ngIf="needToImproveList.length>0">
           <div class="feed feed-list" *ngFor="let needToImprove of needToImproveList">
             <div class="feed-content feed-list-content interaction">
@@ -127,8 +166,8 @@
     </div>
   </div>
 </div>
-
+<!-- 
 <button class="button button-floating add-note-button" type="button" (click)="addComments()" tooltip="Add new comment" aria-hidden="true">
   <i class="appkiticon icon-fill-plus"></i>
-</button>
+</button> -->
 <app-footer></app-footer>

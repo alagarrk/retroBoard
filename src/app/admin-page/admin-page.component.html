@@ -1,77 +1,43 @@
-<app-header></app-header>
-<div class="page-container row">
-  <div class="panels-wrapper clearfix">
-    <div class="row ">
-      <div class="col-12 col-md-4">
-        <div class="panel min-width-no">
-          <div class="panel-heading">
-            <h6 class="panel-title">Schedule retro meeting</h6>
-          </div>
-          <div class="panel-body"></div>
+<div class="adminContainer">
+  <div class="admin-block">
+    <h1>Create retrospective meeting</h1>
+    <form name="meetingForm" class="admin-form-style" (ngSubmit)="f.form.valid && scheduleMeeting()" #f="ngForm" novalidate>
+      <div class="meetingForm-elements" *ngIf="!showRetroLink">
+        <div class="text-content">
+          <i class="material-icons input-icon-style md-light md-inactive">folder_special
+          </i>
+          <input type="text" class="text-input project-name" [(ngModel)]="userInfo.projectName" #projectName="ngModel" placeholder="Project name"
+            name="projectName" [ngClass]="{ 'has-error': f.submitted && !projectName.valid }" required>
+        </div>
+        <div class="text-content">
+          <i class="material-icons input-icon-style md-light md-inactive">track_changes</i>
+          <input type="number" name="quantity" min="1" max="25" class="text-input" [(ngModel)]="userInfo.currentSprint" #currentSprint="ngModel"
+            placeholder="Current sprint" name="currentSprint" [ngClass]="{ 'has-error': f.submitted && !currentSprint.valid }"
+            required>
+        </div>
+        <div class="text-content">
+          <i class="material-icons input-icon-style md-light md-inactive">supervisor_account</i>
+          <input type="number" name="quantity" min="1" max="25" class="text-input" [(ngModel)]="userInfo.totalTeamCount" #totalTeamCount="ngModel"
+            placeholder="# of members" name="totalTeamCount" [ngClass]="{ 'has-error': f.submitted && !totalTeamCount.valid }"
+            required>
         </div>
       </div>
-      <div class="col-11 col-md-8">
-        <div class="panel">
-          <div class="panel-heading schedule-cntr-header">
-            <h6 class="panel-title">Schedule retro meeting</h6>
+      <div class="col-md-12 padding0" *ngIf="showRetroLink">
+        <div class="clearfix field-div">
+          <div class="pull-left retroLink-text">
+            <label class="form-label">Retrospective web link</label>
           </div>
-          <div class="panel-body schedule-cntr">
-            <div class="col-md-8">
-              <div class="clearfix field-div">
-                <div class="pull-left">
-                  <label class="form-label">Project name</label>
-                </div>
-                <div class="pull-right">
-                  <div class="dropdown dropdown-default">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-                      aria-expanded="true">{{selectedProject.displayName}}</button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li *ngFor="let project of projectList" (click)="selectedProject=project">
-                        <a>{{project.displayName}}</a>
-                      </li>
-                    </ul>
-                    <i class="appkiticon icon-outline-down-chevron" data-toggle="dropdown"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="clearfix field-div">
-                <div class="pull-left">
-                  <label class="form-label">Current sprint</label>
-                </div>
-                <div class="pull-right">
-                  <div class="dropdown dropdown-default">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-                      aria-expanded="true">{{selectedSprint.displayName}}</button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li *ngFor="let sprint of sprintList" (click)="selectedSprint=sprint">
-                        <a>{{sprint.displayName}}</a>
-                      </li>
-                    </ul>
-                    <i class="appkiticon icon-outline-down-chevron" data-toggle="dropdown"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="clearfix field-div" *ngIf="showRetroLink">
-                <div class="pull-left retroLink-text">
-                  <label class="form-label">Retrospective Link</label>
-                </div>
-                <div class="pull-left retro-textBox">
-                    <input type="text" class="text-input retro-textBox-width" [disabled]="true" [(ngModel)]="retroLink" 
-                    name="retroLink">
-                </div>
-              </div>
-            </div>
-            <div class="buttons-combined col-md-12 btn-cntr">
-              <button class="button button-primary" type="submit" (click)="scheduleMeeting()">Schedule meeting</button>
-            </div>
+          <div class="pull-left retro-textBox">
+            <input type="text" class="text-input retro-textBox-width" [disabled]="true" [(ngModel)]="retroLink" name="retroLink">
           </div>
         </div>
       </div>
+      <!-- <div *ngIf="f.submitted && !userDisplayName.valid && !userEmail.valid" class="error-msg-style">Please enter valid information</div> -->
+      <button id="retro-login-btn" type="submit" *ngIf="!showRetroLink" analytics-label="Main Menu" class="button button-wide margin-top-3">Create retrospective</button>
 
-    </div>
+      <button id="retro-login-btn" type="button" *ngIf="showRetroLink" analytics-label="Main Menu" class="button button-wide margin-top-3"
+        (click)="goToLogin()">Click to join meeting</button>
+
+    </form>
   </div>
 </div>
-
-<app-footer></app-footer>

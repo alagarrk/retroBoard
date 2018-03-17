@@ -1,0 +1,117 @@
+/* App common styles */
+
+.retro-button {
+    background-color: #d04a02;
+    cursor: pointer;
+    border-radius: .125rem;
+    height: 2.625rem;
+    padding: .75rem 1.25rem;
+    font-size: 1rem;
+    line-height: 1rem;
+    outline: none;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.retro-button:hover {
+    background-color: #b23f02;
+}
+
+.loading-modal .global-loader-div {
+    background-color: #f2f2f2;
+    top: 40%;
+    left: 50%;
+    border-radius: .25rem;
+    position: relative;
+    width: 8.438rem;
+    height: 8.438rem;
+    margin-left: -4.125rem;
+    color: #fff;
+    font-size: .75rem;
+    text-align: center;
+    padding: .8125rem 2rem 1.125rem 2.0625rem;
+    float: left;
+}
+
+.loading-modal .global-loader-div.darker {
+    background-color: rgba(0, 0, 0, .7);
+}
+
+.loading-modal div {
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.loading-modal .global-loader-div.darker .global-loader {
+    border: .1875rem solid #fff;
+    border-top: none !important;
+    border-right: none;
+    border-bottom: none;
+}
+
+.loading-modal .global-loader-div .global-loader {
+    left: 0 !important;
+    top: 0 !important;
+    display: inline-block;
+    height: 1.375rem !important;
+    width: 1.375rem !important;
+    font-size: .625rem;
+    margin: .1875rem auto 0;
+    position: relative;
+    margin-top: 1.563rem;
+    border-radius: 50%;
+    border: .1875rem solid #d04a02;
+    border-top: none !important;
+    border-right: none;
+    border-bottom: none;
+    -webkit-animation: load3 .3s infinite linear;
+    animation: load3 .3s infinite linear;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+@keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(1turn);
+        transform: rotate(1turn)
+    }
+}
+
+.loading-modal .loading-end {
+    height: 1.25rem;
+    font-size: .75rem;
+    margin-top: .875rem;
+}
+
+.loading-modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 9999;
+}
+
+.loading-modal .global-loader-div.default-style .global-loader:before {
+    width: 50%;
+    height: 50%;
+    border-radius: 100% 0 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    border: .1875rem solid #d04a02;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+.loading-modal .global-loader-div.darker.default-style .global-loader:before {
+    border: .1875rem solid #fff;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}

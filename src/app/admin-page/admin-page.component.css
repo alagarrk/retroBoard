@@ -1,46 +1,115 @@
-.page-container {
-    width: 98%;
-    float: left;
-    margin: 1.25rem 1rem;
-    height: calc(100vh - 3.6rem - 5.2rem);
-  }
-  .schedule-cntr-header{
-    border-bottom: 1px solid #f2f2f2;
-  }
-  .schedule-cntr{
-    padding-bottom:1rem;
-    padding-right:0rem;
-  }
-  .schedule-cntr .dropdown {
-    margin-bottom:0;
-  }
-  .schedule-cntr .dropdown-toggle::after
-  {
-    display: none;
-  }
-  .schedule-cntr .field-div{
-    margin:1.25rem 0px;
-  }
-  .schedule-cntr .pull-left{
-    width:40%;
-  }
-  .schedule-cntr .pull-right{
-    width:60%;
-  }
+/* Admin page - Styles */
 
- .btn-cntr{
-    text-align: right;
-    display: block;
-  }
-  .schedule-cntr .retroLink-text
-  {
-    width: 26%;
-  }
-  .schedule-cntr .retro-textBox
-  {
-    width: 74%;
-  }
-  .retro-textBox-width
-  {
-    width:88%;
-  }
+.adminContainer {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://blog.closeriq.com/wp-content/uploads/2016/08/startup-team-meeting.jpg') no-repeat fixed center center;
+  background-size: cover;
+  font-family: 'Roboto';
+  font-weight: 400;
+  width: 100%;
+  height: 100vh;
+  float: left;
+}
+
+.padding0 {
+  padding: 0px;
+}
+
+.retroLink-text {
+  width: 100%;
+  color: #d04903;
+}
+
+.retro-textBox {
+  width: 100%;
+}
+
+.retro-textBox-width {
+  width: 88%;
+}
+
+.has-error {
+  border: 1px solid #E0301E!important;
+}
+
+.error-msg-style {
+  margin: 0 0 1rem 0 !important;
+  color: #e0301e;
+  font-size: 12px;
+}
+
+.admin-block {
+  width: 400px;
+  padding: 25px;
+  background: #fff;
+  border-radius: 5px;
+  border-top: 5px solid #d04a02;
+  margin: 5rem auto;
+}
+
+.admin-block h1 {
+  text-align: center;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-family: Roboto;
+  font-weight: bold;
+  color: #333;
+}
+
+.admin-block input {
+  width: 100%;
+  height: 42px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  font-size: 14px;
+  padding-left:15px;
+  font-family: 'Roboto';
+  outline: none;
+}
+
+.admin-block .text-content input {
+  padding: 0 20px 0 50px;
+}
+
+.admin-block .text-content {
+  position: relative;
+}
+
+.input-icon-style {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+}
+
+.material-icons.input-icon-style {
+  color: #999;
+}
+
+.admin-block input:active,
+.admin-block input:focus {
+  border: 1px solid #d04a02;
+}
+
+.admin-block button {
+  width: 100%;
+  height: 40px;
+  background: #d04a02;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #d04a02;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  outline: none;
+  cursor: pointer;
+}
+
+.admin-block button:hover {
+  background: #d04a02;
+}

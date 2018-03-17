@@ -1,51 +1,18 @@
-<div id="login-samples" class="login-container login-page">
-  <div class="login-form col-xs-1,col-sm-4" novalidate>
-    <ul class="title-section">
-      <li class="pwc-logo">
-        <img src="assets/logo.png">
-      </li>
-      <li class="app-title title">Retro board</li>
-    </ul>
-    <div class="title-bottom-line"></div>
-    <div class="login-to-your-acount contentheader">Register to your retrospective</div>
-    <!-- <fieldset class="fieldset login-sample-fieldset">
-      <label class="form-label sample-guid-label">GUID</label>
-      <input type="text" class="text-input sample-guid-input" [(ngModel)]="guid" required>
-      <label class="form-label sample-password-label">Display name</label>
-      <input type="text" class="text-input sample-guid-input" [(ngModel)]="userDisplayName" required>
-      <label class="form-label sample-password-label">Project name</label>
-      <input type="text" class="text-input sample-guid-input" [(ngModel)]="projectName" required>
-
-    </fieldset> -->
-
+<div class="loginContainer">
+  <div class="login-block">
+    <h1>Retro board - Join with team</h1>
     <form name="loginForm" class="login-form-style" (ngSubmit)="f.form.valid && registerUser()" #f="ngForm" novalidate>
-      <label class="form-label">GUID
-        <span class="form-label-required">*</span>
-      </label>
-      <input type="text" class="text-input" [(ngModel)]="userInfo.guid" #guid="ngModel" placeholder="GUID" name="guid" [ngClass]="{ 'has-error': f.submitted && !guid.valid }"
-        required>
-      <div *ngIf="f.submitted && !guid.valid" class="error-msg-style">Please enter GUID</div>
-
-      <label class="form-label">Display name
-        <span class="form-label-required">*</span>
-      </label>
-      <input type="text" class="text-input" [(ngModel)]="userInfo.userDisplayName" #userDisplayName="ngModel" placeholder="Nick/Display name"
-        name="userDisplayName" [ngClass]="{ 'has-error': f.submitted && !userDisplayName.valid }" required>
-      <div *ngIf="f.submitted && !userDisplayName.valid" class="error-msg-style">Please enter your display name</div>
-
-      <label class="form-label">Select your role
-      </label>
-      <div class="dropdown dropdown-default">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="true">{{selectedRole.value}}</button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li *ngFor="let role of roleList" (click)="selectedRole=role">
-            <a>{{role.value}}</a>
-          </li>
-        </ul>
-        <i class="appkiticon icon-outline-down-chevron" data-toggle="dropdown"></i>
+      <div class="text-content">
+        <i class="material-icons input-icon-style md-light md-inactive">email</i>
+        <input type="text" class="text-input username" [(ngModel)]="userInfo.userEmail" #userEmail="ngModel" placeholder="Email"
+          name="userEmail" [ngClass]="{ 'has-error': f.submitted && !userEmail.valid }" required>
       </div>
-
+      <div class="text-content">
+        <i class="material-icons input-icon-style md-light md-inactive">face</i>
+        <input type="text" class="text-input username" [(ngModel)]="userInfo.userDisplayName" #userDisplayName="ngModel" placeholder="Nick/Display name"
+          name="userDisplayName" [ngClass]="{ 'has-error': f.submitted && !userDisplayName.valid }" required>
+      </div>
+      <div *ngIf="f.submitted && !userDisplayName.valid && !userEmail.valid" class="error-msg-style">Please enter valid information</div>
       <button id="retro-login-btn" type="submit" analytics-on="click" analytics-event="Log in" analytics-category="Custom Button"
         analytics-label="Main Menu" class="button button-wide margin-top-3">Join meeting</button>
     </form>

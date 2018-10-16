@@ -1,32 +1,53 @@
-<nav class="navbar static">
-  <div class="top-bar">
-    <div class="pull-left logo-box">
-      <img class="logo" src="assets/logo.png">
-    </div>
-    <div class="app-name pull-left">Retro board</div>
-    <div class="logout-container pull-right border-left">
-      <div class="user-name cursor-pointer" (click)="toggleSettingCntr($event)">AB</div>
-    </div>
-    <div class="pull-right border-left topbar-padding notification-icon">
-      <i class="icon-outline-notification"></i>
-    </div>
-    <div class="userSettingList ng-hide" [hidden]="!showSettingCntr">
-      <ul>
-        <li>
-          <div class="userDetails">
-            <div class="user-image">AB</div>
-            <div class="user-name">
-              <p class="name">
-                <span *ngIf="currentInfoUser">{{currentInfoUser.displayName}}</span>
-                <span *ngIf="!currentInfoUser">Admin</span>
+<!-- Main Header -->
+<header class="main-header">
+  <!-- Logo -->
+  <div class="logo">
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg">
+      <b>Retro</b> Board</span>
+  </div>
+  <!-- Header Navbar -->
+  <nav class="navbar navbar-static-top" role="navigation">
+    <!-- Navbar Right Menu -->
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <!-- User Account Menu -->
+        <li class="dropdown user user-menu">
+          <!-- Menu Toggle Button -->
+          <a class="dropdown-toggle" data-toggle="dropdown">
+            <!-- The user image in the navbar-->
+            <img src="assets/avator.png" class="user-image" alt="User Image">
+            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+            <span class="hidden-xs">{{currentInfoUser.displayName}}</span>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- The user image in the menu -->
+            <li class="user-header">
+              <img src="assets/avator.png" class="img-circle" alt="User Image">
+
+              <p>
+                {{currentInfoUser.displayName}} - Web Developer
+                <small>Apex Team - Sprint 18</small>
               </p>
-            </div>
-          </div>
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <!-- <div class="pull-left">
+                <a href="#" class="btn btn-default btn-flat">Profile</a>
+              </div> -->
+              <div class="pull-right">
+                <a (click)="logoutUser()" class="btn btn-default btn-flat">Sign out</a>
+              </div>
+            </li>
+          </ul>
         </li>
-        <li (click)="logoutUser()">
-          <i class="appkiticon icon-fill-logout logout-svg"></i>Logout
+        <!-- Control Sidebar Toggle Button -->
+        <li>
+          <a data-toggle="control-sidebar">
+            <i class="fa fa-gears"></i>
+          </a>
         </li>
       </ul>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>

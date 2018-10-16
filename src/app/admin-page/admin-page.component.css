@@ -1,7 +1,8 @@
 /* Admin page - Styles */
 
 .adminContainer {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://blog.closeriq.com/wp-content/uploads/2016/08/startup-team-meeting.jpg') no-repeat fixed center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+  url('/assets/retro-bg-img.jpg') no-repeat fixed center center;
   background-size: cover;
   font-family: 'Roboto';
   font-weight: 400;
@@ -17,6 +18,7 @@
 .retroLink-text {
   width: 100%;
   color: #d04903;
+  font-size: 14px;
 }
 
 .retro-textBox {

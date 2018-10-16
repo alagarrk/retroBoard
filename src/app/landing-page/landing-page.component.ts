@@ -22,13 +22,15 @@ interface cmdId extends Comment {
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.css']
+  styleUrls: ['./landing-page.component.scss']
 })
 
 export class LandingPageComponent {
   commentsCol: AngularFirestoreCollection<Comment>;
   commentList: any;
   currentInfoUser: any = [];
+  commentType: any = [];
+
   commentDescription: string;
   public categoryList: any = [];
   comment: any = {}; // To pass values from view to component
@@ -38,12 +40,19 @@ export class LandingPageComponent {
   wentWrongList: any = [];
   needToImproveList: any = [];
   showAddCommentBox: any = {};
+  selectedCommentType : any = {};
 
   listObservable: any;
   constructor(private afs: AngularFirestore, private modalService: BsModalService, private router: Router) {
     this.showAddCommentBox.wentWellList = false;
-    this.comment = { "wentWellList":{ commentDescription: '' }, "wentWrongList":{ commentDescription: '' }, "needToImproveList":{ commentDescription: '' }};
+    this.comment = { "wentWellList": { commentDescription: '' }, "wentWrongList": { commentDescription: '' }, "needToImproveList": { commentDescription: '' } };
     this.categoryList = [{ name: 'wentWellList', value: "What went well?" }, { name: 'wentWrongList', value: "What went wrong?" }, { name: 'needToImproveList', value: "What need to improve?" }];
+    this.commentType = [{ id: 0, url: 'assets/comment-image/010-brain.png', name: 'Idea/Research' }, { id: 1, url: 'assets/comment-image/008-meeting.png', name: 'Meeting' }, { id: 3, url: 'assets/comment-image/011-document.png', name: 'Document' },
+    { id: 4, url: 'assets/comment-image/009-businesswoman.png', name: 'Business women' }, { id: 5, url: 'assets/comment-image/001-boss.png', name: 'Business men' }, { id: 6, url: 'assets/comment-image/004-megaphone.png', name: 'Announcement' },
+    { id: 7, url: 'assets/comment-image/007-calendar-1.png', name: 'Calendar' }, { id: 8, url: 'assets/comment-image/003-puzzle.png', name: 'Team' }, { id: 9, url: 'assets/comment-image/013-trophy.png', name: 'Appreciation' },
+    { id: 10, url: 'assets/comment-image/002-bank.png', name: 'Revenue' }, { id: 11, url: 'assets/comment-image/014-target.png', name: 'Target' }, { id: 12, url: 'assets/comment-image/012-goal.png', name: 'Release' }
+    ];
+   this.selectedCommentType =  this.commentType[9];
   }
 
   toggleCommentTxtbx(categoryId) {
@@ -60,6 +69,7 @@ export class LandingPageComponent {
         {
           description: this.comment[this.categoryList[categoryId].name].commentDescription,
           likes: 0,
+          commentType:this.selectedCommentType,
           currentLikeStatus: {
             userLikesList: [], selfStatus: false
           },

@@ -1,0 +1,22 @@
+/* Header part */
+
+$retro-bgColor: #d04a02;
+.main-header {
+    .main-header .logo {
+        background-color: $retro-bgColor;
+    }
+}
+
+.navbar-nav>.user-menu {
+    .user-image {
+        background: white;
+    }
+}
+
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>p {
+    font-size: 14px;
+}
+
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>img {
+    background: white;
+}

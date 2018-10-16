@@ -23,13 +23,13 @@
     left: 50%;
     border-radius: .25rem;
     position: relative;
-    width: 8.438rem;
-    height: 8.438rem;
+    width: 136px;
+    height: 142px;
     margin-left: -4.125rem;
     color: #fff;
-    font-size: .75rem;
+    font-size: 14px;
     text-align: center;
-    padding: .8125rem 2rem 1.125rem 2.0625rem;
+    padding: 1.25rem 2rem 1.2rem 2.0625rem;
     float: left;
 }
 
@@ -40,6 +40,7 @@
 .loading-modal div {
     margin-right: 0 !important;
     margin-bottom: 0 !important;
+    font-size: 14px;
 }
 
 .loading-modal .global-loader-div.darker .global-loader {
@@ -53,12 +54,12 @@
     left: 0 !important;
     top: 0 !important;
     display: inline-block;
-    height: 1.375rem !important;
-    width: 1.375rem !important;
-    font-size: .625rem;
-    margin: .1875rem auto 0;
+    height: 24px !important;
+    width: 24px !important;
+    font-size: 14px;
+    margin: 8rem auto 0;
     position: relative;
-    margin-top: 1.563rem;
+    margin-top: 24px;
     border-radius: 50%;
     border: .1875rem solid #d04a02;
     border-top: none !important;
@@ -83,7 +84,7 @@
 
 .loading-modal .loading-end {
     height: 1.25rem;
-    font-size: .75rem;
+    font-size: 14px;
     margin-top: .875rem;
 }
 

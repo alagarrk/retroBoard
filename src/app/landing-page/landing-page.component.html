@@ -1,4 +1,4 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 
 <div class="page-container row">
   <div class="col-4">
@@ -165,9 +165,177 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- 
 <button class="button button-floating add-note-button" type="button" (click)="addComments()" tooltip="Add new comment" aria-hidden="true">
   <i class="appkiticon icon-fill-plus"></i>
 </button> -->
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->
+
+<div class="wrapper">
+  <app-header></app-header>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        2 Truths and a Wish Retrospective Theme
+        <small>Two of which are true statements and one statement that is phrased as a wish</small>
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <i class="fa fa-balance-scale"></i>
+              <h3 class="box-title">Truth - One</h3>
+              <i class="fa fa-plus-circle add-comment-icon" title="Add comments" (click)="toggleCommentTxtbx(0)"></i>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <!-- /.info-box -->
+              <div class="add-comment-cntr posRelative" [hidden]="!showAddCommentBox.wentWellList">
+                <i class="fa fa-close comment-close-icon" title="Close" (click)="toggleCommentTxtbx(0)"></i>
+                <form class="comment-textBox-cntr" #f="ngForm" (keyup.enter)="addComments($event,0)">
+                  <div class="form-group">
+                    <label>Comment type</label>
+                    <select class="form-control" name="commentType" [(ngModel)]="selectedCommentType">
+                      <option *ngFor="let type of commentType" [ngValue]="type">{{type.name}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" rows="3" name="commentDescription" maxtextlength="150" [(ngModel)]="comment.wentWellList.commentDescription"
+                      #commentDescription="ngModel" placeholder="Enter your comments" required></textarea>
+                    <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
+                      *Press enter to save your comments
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="info-box-outCntr" *ngIf="wentWellList.length>0">
+                <div class="info-box bg-purple" *ngFor="let wentWell of wentWellList">
+                  <span class="info-box-icon">
+                    <img src="{{wentWell.commentType.url}}" class="info-box-image" title="{{wentWell.commentType.name}}" />
+                  </span>
+                  <div class="info-box-content">
+                    <span class="progress-description">
+                      {{wentWell.description}}
+                    </span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+              </div>
+              <div class="info-box no-feed-found bg-purple" *ngIf="wentWellList.length===0"> No comments found</div>
+            </div>
+          </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-md-4">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <i class="fa fa-balance-scale"></i>
+              <h3 class="box-title">Truth - Two</h3>
+              <i class="fa fa-plus-circle add-comment-icon" title="Add comments" (click)="toggleCommentTxtbx(1)"></i>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <!-- /.info-box -->
+              <div class="add-comment-cntr posRelative" [hidden]="!showAddCommentBox.wentWrongList">
+                <i class="fa fa-close comment-close-icon" title="Close" (click)="toggleCommentTxtbx(1)"></i>
+                <form class="comment-textBox-cntr" #f="ngForm" (keyup.enter)="addComments($event,1)">
+                  <div class="form-group">
+                    <label>Comment type</label>
+                    <select class="form-control" name="commentType" [(ngModel)]="selectedCommentType">
+                      <option *ngFor="let type of commentType" [ngValue]="type">{{type.name}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" rows="3" name="commentDescription" maxtextlength="150" [(ngModel)]="comment.wentWrongList.commentDescription"
+                      #commentDescription="ngModel" placeholder="Enter your comments" required></textarea>
+                    <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
+                      *Press enter to save your comments
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- Info Boxes -->
+              <div class="info-box-outCntr" *ngIf="wentWrongList.length>0">
+                <div class="info-box bg-orange" *ngFor="let wentWrong of wentWrongList">
+                  <span class="info-box-icon">
+                    <img src="{{wentWrong.commentType.url}}" class="info-box-image" title="{{wentWrong.commentType.name}}" />
+                  </span>
+                  <div class="info-box-content">
+                    <span class="progress-description">
+                      {{wentWrong.description}}
+                    </span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+              </div>
+              <div class="info-box no-feed-found bg-orange" *ngIf="wentWrongList.length===0"> No comments found</div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <div class="col-md-4">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <i class="fa fa-angellist"></i>
+              <h3 class="box-title">A Wish</h3>
+              <i class="fa fa-plus-circle add-comment-icon" title="Add comments" (click)="toggleCommentTxtbx(2)"></i>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="add-comment-cntr posRelative" [hidden]="!showAddCommentBox.needToImproveList">
+                <i class="fa fa-close comment-close-icon" title="Close" (click)="toggleCommentTxtbx(2)"></i>
+                <form class="comment-textBox-cntr" #f="ngForm" (keyup.enter)="addComments($event,2)">
+                  <div class="form-group">
+                    <label>Comment type</label>
+                    <select class="form-control" name="commentType" [(ngModel)]="selectedCommentType">
+                      <option *ngFor="let type of commentType" [ngValue]="type">{{type.name}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" rows="3" name="commentDescription" maxtextlength="150" [(ngModel)]="comment.needToImproveList.commentDescription"
+                      #commentDescription="ngModel" placeholder="Enter your comments" required></textarea>
+                    <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
+                      *Press enter to save your comments
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="info-box-outCntr" *ngIf="needToImproveList.length>0">
+                <div class="info-box bg-green" *ngFor="let needToImprove of needToImproveList">
+                  <span class="info-box-icon">
+                      <img src="{{needToImprove.commentType.url}}" class="info-box-image" title="{{needToImprove.commentType.name}}" />
+                  </span>
+                  <div class="info-box-content">
+                    <span class="progress-description">
+                      {{needToImprove.description}}
+                    </span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+              </div>
+              <div class="info-box no-feed-found bg-green" *ngIf="needToImproveList.length===0"> No comments found</div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <app-side-bar></app-side-bar>
+  <!-- /.control-sidebar -->
+</div>

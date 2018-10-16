@@ -24,6 +24,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NgEnterDirective } from './components/directives/ng-enter.directive';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 // Firebase credentials - Setup
 var firebaseConfig = {
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
     AdminPageComponent,
     HeaderComponent,
     FooterComponent,
-    NgEnterDirective
+    NgEnterDirective,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,

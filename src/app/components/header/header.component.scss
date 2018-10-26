@@ -13,6 +13,10 @@ $retro-bgColor: #d04a02;
     }
 }
 
+.skin-blue .main-header .logo:hover
+{background-color: $retro-bgColor;
+
+}
 .navbar-nav>.user-menu>.dropdown-menu>li.user-header>p {
     font-size: 14px;
 }

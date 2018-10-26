@@ -16,11 +16,13 @@ export class AdminPageComponent implements OnInit {
   totalTeamCount: string;
 
   retroLink: string;
+  dynamicUrlInfo: string;
   showRetroLink: boolean = false;
 
   constructor(private afs: AngularFirestore, private sharedVariable: AppSharedService) {
     this.projectName = "test";
-
+    const isLocal = false;
+    this.dynamicUrlInfo = isLocal ? 'localhost:4200' : 'codevaders.com/index.html#';
   }
 
   scheduleMeeting() {
@@ -36,13 +38,13 @@ export class AdminPageComponent implements OnInit {
       .then(function (docRef) {
         _this.sharedVariable.showLoading = false;
         _this.showRetroLink = true;
-        _this.retroLink = `http://localhost:4200/login?meetingId=${docRef.id}`;
+        _this.retroLink = `http://${_this.dynamicUrlInfo}/login?meetingId=${docRef.id}`;
       })
       .catch(function (error) {
         console.error("Error writing document: ", error);
       });
   }
-  goToLogin(){
+  goToLogin() {
     window.location.href = this.retroLink;
   }
 

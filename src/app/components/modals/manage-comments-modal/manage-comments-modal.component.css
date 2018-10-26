@@ -1,24 +1,51 @@
 .comment-modal-body {
   margin-bottom: 0.5rem;
 }
-.comment-modal-body .dropdown
-{
-  margin-bottom:0rem!important;
+
+.comment-modal-body .dropdown {
+  margin-bottom: 0rem !important;
 }
+
 .dropdown-toggle::after {
   border: 0px !important;
 }
 
-.comment-modal-body .text-input{
-  margin-bottom:0rem!important;
+.comment-modal-body .text-input {
+  margin-bottom: 0rem !important;
 }
 
-.has-error{
-  border:1px solid #E0301E;
+.has-error {
+  border: 1px solid #E0301E;
 }
 
-.error-msg-style{
-  margin: 2px 0 5px 0!important;
+.error-msg-style {
+  margin: 2px 0 5px 0 !important;
   color: #e0301e;
   font-size: 12px;
+}
+
+.instruction-text {
+  color: #d04a02;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.modal-btn {
+  background-color: #d04a02;
+  line-height: 1.125rem;
+  cursor: pointer;
+  border: 0;
+  color: white;
+  border-radius: .125rem;
+  height: 2.625rem;
+  padding: .75rem 1.25rem;
+  font-size: 1rem;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 0.5rem;
+}
+
+.modal-header .close{
+    opacity: 0.7;
 }

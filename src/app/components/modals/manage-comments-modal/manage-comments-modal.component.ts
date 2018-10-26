@@ -18,7 +18,8 @@ export class ManageCommentsModalComponent implements OnInit {
   public userName: string;
   public guid: string;
   public isEditMode: boolean = false;
-
+  selectedCommentType: any = {};
+  commentType: any = [];
 
   public onClose: Subject<boolean>;
   public categoryList: any = [];
@@ -29,8 +30,11 @@ export class ManageCommentsModalComponent implements OnInit {
   public constructor(
     private _bsModalRef: BsModalRef, private afs: AngularFirestore
   ) {
-    this.categoryList = [{ name: 'wentWellList', value: "What went well?" }, { name: 'wentWrongList', value: "What went wrong?" }, { name: 'needToImproveList', value: "What need to improve?" }];
-    this.selectedCategory = this.categoryList[0];
+    this.commentType = [{ id: 0, url: 'assets/comment-image/010-brain.png', name: 'Idea/Research' }, { id: 1, url: 'assets/comment-image/008-meeting.png', name: 'Meeting' }, { id: 2, url: 'assets/comment-image/018-teacher.png', name: 'Mentoring' }, { id: 3, url: 'assets/comment-image/011-document.png', name: 'Document' },
+    { id: 4, url: 'assets/comment-image/009-businesswoman.png', name: 'Business women' }, { id: 5, url: 'assets/comment-image/001-boss.png', name: 'Business men' }, { id: 6, url: 'assets/comment-image/004-megaphone.png', name: 'Announcement' },
+    { id: 7, url: 'assets/comment-image/007-calendar-1.png', name: 'Calendar' }, { id: 8, url: 'assets/comment-image/003-puzzle.png', name: 'Team' }, { id: 9, url: 'assets/comment-image/013-trophy.png', name: 'Appreciation' },
+    { id: 10, url: 'assets/comment-image/002-bank.png', name: 'Revenue' }, { id: 11, url: 'assets/comment-image/014-target.png', name: 'Target' }, { id: 12, url: 'assets/comment-image/012-goal.png', name: 'Release' }
+    ];
     this.isEditMode = false;
   }
 
@@ -48,10 +52,9 @@ export class ManageCommentsModalComponent implements OnInit {
   // editCommentsModal method - Trigger when modal opens
   public editCommentsModal(currentInfoUser, selectedComment): void {
     this.selectedComment = selectedComment;
-    this.comment.commentTitle = selectedComment.title;
+    this.selectedCommentType = this.commentType[selectedComment.commentType.id];
 
     this.comment.commentDescription = selectedComment.description;
-    this.selectedCategory = selectedComment.category;
     this.currentInfoUser = currentInfoUser;
     this.active = true;
     this.isEditMode = true;
@@ -61,45 +64,22 @@ export class ManageCommentsModalComponent implements OnInit {
   public saveComments(): void {
     const currentInstance = this;
     this._bsModalRef.hide();
-    if (!this.isEditMode) {
-      // To add new comments
-      this.afs.collection('comments').add(
-        {
-          title: this.comment.commentTitle,
-          description: this.comment.commentDescription,
-          likes: 0,
-          currentLikeStatus: {
-            userLikesList: [], selfStatus: false
-          },
-          category: this.selectedCategory,
-          userInfo: this.currentInfoUser
-        })
-        .then(function () {
-          currentInstance.active = false;
-          currentInstance.onClose.next(true);
 
-        })
-        .catch(function (error) {
-          console.error("Error writing document: ", error);
-        });
-    }
-    else {
-      // To update comments
-      this.afs.collection("comments").doc(this.selectedComment.id).update({
-        title: this.comment.commentTitle,
-        description: this.comment.commentDescription,
-        category: this.selectedCategory,
-        userInfo: this.currentInfoUser
+    // To update comments
+    this.afs.collection("comments").doc(this.selectedComment.id).update({
+      description: this.comment.commentDescription,
+      userInfo: this.currentInfoUser,
+      commentType: this.selectedCommentType
+    })
+      .then(function () {
+        currentInstance.active = false;
+        currentInstance.onClose.next(true);
+        //currentInstance._bsModalRef.hide();
       })
-        .then(function () {
-          currentInstance.active = false;
-          currentInstance.onClose.next(true);
-          //currentInstance._bsModalRef.hide();
-        })
-        .catch(function (error) {
-          console.error("Error writing document: ", error);
-        });
-    }
+      .catch(function (error) {
+        console.error("Error writing document: ", error);
+      });
+
   }
 
   public onCancel(): void {

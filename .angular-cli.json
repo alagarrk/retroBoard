@@ -22,6 +22,7 @@
         "../node_modules/tether/dist/css/tether.min.css",
         "assets/admin-template-files/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/admin-lte/dist/css/AdminLTE.min.css",
+        "../node_modules/dragula/dist/dragula.css",
         "styles.scss"
       ],
       "scripts": [

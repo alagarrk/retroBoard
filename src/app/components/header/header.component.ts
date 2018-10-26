@@ -10,6 +10,8 @@ import { Location } from '@angular/common';
 export class HeaderComponent implements OnInit {
   showSettingCntr: boolean;
   currentInfoUser: any = {};
+  projectInfo: any = {};
+  
   constructor(private router: Router, private location: Location) { }
 
   // Show/Hide setting dropdown
@@ -31,6 +33,7 @@ export class HeaderComponent implements OnInit {
     } else {
       this.currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
       if (this.currentInfoUser) {
+        this.projectInfo = JSON.parse(sessionStorage.getItem('projectInfo'));
         this.router.navigate(['landing']);
       } else {
         this.router.navigate(['login']);

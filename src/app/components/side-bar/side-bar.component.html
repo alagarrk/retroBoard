@@ -1,22 +1,23 @@
 <!-- Control Sidebar -->
+
 <aside class="control-sidebar control-sidebar-dark">
   <!-- Create the tabs -->
   <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
     <li class="active">
       <a href="#control-sidebar-settings-tab" data-toggle="tab">
-        <i class="fa fa-home"></i>
+        <i class="fa fa-gears"></i> Settings
       </a>
     </li>
-    <li>
+    <!-- <li class="active">
       <a href="#control-sidebar-home-tab" data-toggle="tab">
-        <i class="fa fa-gears"></i>
+        <i class="fa fa-gears"></i> General Settings
       </a>
-    </li>
+    </li> -->
   </ul>
   <!-- Tab panes -->
   <div class="tab-content">
     <!-- Home tab content -->
-    <div class="tab-pane" id="control-sidebar-home-tab">
+    <!-- <div class="tab-pane" id="control-sidebar-home-tab">
       <h3 class="control-sidebar-heading">Recent Activity</h3>
       <ul class="control-sidebar-menu">
         <li>
@@ -31,7 +32,7 @@
           </a>
         </li>
       </ul>
-      <!-- /.control-sidebar-menu -->
+     
 
       <h3 class="control-sidebar-heading">Tasks Progress</h3>
       <ul class="control-sidebar-menu">
@@ -50,29 +51,38 @@
           </a>
         </li>
       </ul>
-      <!-- /.control-sidebar-menu -->
+      
 
-    </div>
+    </div> -->
     <!-- /.tab-pane -->
     <!-- Stats tab content -->
-    <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+    <!-- <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div> -->
     <!-- /.tab-pane -->
     <!-- Settings tab content -->
     <div class="tab-pane active" id="control-sidebar-settings-tab">
       <form method="post">
-        <h3 class="control-sidebar-heading">General Settings</h3>
+        <h3 class="control-sidebar-heading">Theme Settings</h3>
 
         <div class="form-group">
           <label class="control-sidebar-subheading">
-            Report panel usage
-            <input type="checkbox" class="pull-right" checked>
+            Development InProgress
           </label>
-
           <p>
-            Some information about this general settings option
+            Help us to create different themes
           </p>
         </div>
-        <!-- /.form-group -->
+
+        <h3 class="control-sidebar-heading">Export Settings</h3>
+
+        <div class="form-group">
+          <label class="control-sidebar-subheading downloadLink" (click)="downloadExcelFile()">
+            Download as Excel
+          </label>
+          <p>
+            Help us to download retro comments in excel file
+          </p>
+        </div>
+
       </form>
     </div>
     <!-- /.tab-pane -->

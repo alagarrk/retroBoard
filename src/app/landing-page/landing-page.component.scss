@@ -154,3 +154,32 @@
     cursor: pointer;
   }
 }
+
+.info-box-icon {
+  position: relative;
+}
+
+.info-comment-edit-box {
+  position: absolute;
+  width: 100%;
+  height: 25px;
+  background: rgba(0, 0, 0, 0.35);
+  bottom: -1px;
+  .info-comment-remove-icon {
+    float: right;
+    margin: 3px 15px 0 0;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .info-comment-edit-icon {
+    float: left;
+    margin: 3px 0px 0 10px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+ 
+}
+
+.highlight-comment{
+  border: 2px solid #d04a02;
+}

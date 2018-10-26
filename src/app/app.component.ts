@@ -22,7 +22,7 @@ export class AppComponent {
   //   this.appVariable.showLoading = false;
   // }
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private appVariable: AppSharedService, private location: Location) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, public appVariable: AppSharedService, private location: Location) {
     this.appVariable.showLoading = false;
   }
 

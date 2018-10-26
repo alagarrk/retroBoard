@@ -5,14 +5,16 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router'
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
-
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 
 import { AppComponent } from './app.component';
 import { AppSharedService } from '../shared.service';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 import * as _ from "lodash";
 
@@ -58,18 +60,19 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    FormsModule, HttpModule,
+    FormsModule, HttpModule, 
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     RouterModule.forRoot(appRoutes),
+    DragulaModule,
     ModalModule.forRoot(),
     TooltipModule.forRoot()
   ],
   exports: [
     RouterModule
   ],
-  providers: [AppSharedService],
+  providers: [AppSharedService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
   entryComponents: [
     ManageCommentsModalComponent

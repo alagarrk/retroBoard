@@ -78,7 +78,10 @@ export class LoginComponent {
         if (!doc.exists) {
           console.log('No such document!');
         } else {
-          console.log('Document data:', doc.data());
+          const projectInfo = doc.data();
+          sessionStorage.setItem('projectInfo', JSON.stringify(
+            projectInfo
+          ));
         }
       })
       .catch(err => {

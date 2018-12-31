@@ -21,7 +21,7 @@ export class AdminPageComponent implements OnInit {
 
   constructor(private afs: AngularFirestore, private sharedVariable: AppSharedService) {
     this.projectName = "test";
-    const isLocal = false;
+    const isLocal = true;
     this.dynamicUrlInfo = isLocal ? 'localhost:4200' : 'codevaders.com/index.html#';
   }
 

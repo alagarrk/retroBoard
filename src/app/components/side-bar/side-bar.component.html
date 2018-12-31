@@ -1,6 +1,6 @@
 <!-- Control Sidebar -->
 
-<aside class="control-sidebar control-sidebar-dark">
+<aside class="control-sidebar control-sidebar-dark setting-cntr">
   <!-- Create the tabs -->
   <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
     <li class="active">
@@ -75,11 +75,19 @@
         <h3 class="control-sidebar-heading">Export Settings</h3>
 
         <div class="form-group">
-          <label class="control-sidebar-subheading downloadLink" (click)="downloadExcelFile()">
-            Download as Excel
+          <label class="control-sidebar-subheading downloadLink" (click)="downloadCommentsList()">
+            Download retro comments
           </label>
           <p>
-            Help us to download retro comments in excel file
+            Help you to download retro comments in excel file
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="control-sidebar-subheading downloadLink" (click)="downloadHappinessScore()">
+            Download happiness score
+          </label>
+          <p>
+            Help you to download sprint happiness score in excel file
           </p>
         </div>
 

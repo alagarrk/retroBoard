@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
   // Logout user
   logoutUser() {
     sessionStorage.removeItem('currentUserInfo');
+    sessionStorage.removeItem('projectInfo');
     this.router.navigate(['login']);
   }
 

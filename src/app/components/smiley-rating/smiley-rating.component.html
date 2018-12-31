@@ -1,0 +1,6 @@
+<div class="smiley-cntr">
+  <div class="smiley-input-panel" *ngFor="let smiley of noOfSmileys">
+    <input type="radio" [name]="happinessScore" id={{smiley.className}} [value]="smiley.score" [(ngModel)]="userHappinessScore"/>
+    <label class="smiley-img {{smiley.className}}" for="{{smiley.className}}">{{smiley.labelText}}</label>
+  </div>
+</div>

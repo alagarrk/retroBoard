@@ -126,6 +126,7 @@
 
 .content-wrapper {
   margin-left: 0;
+  min-height: 500px!important;
   .progress-description,
   .info-box-text {
     white-space: normal;
@@ -177,9 +178,38 @@
     font-size: 14px;
     cursor: pointer;
   }
- 
 }
 
-.highlight-comment{
+.highlight-comment {
   border: 2px solid #d04a02;
+}
+
+.floatLeft {
+  float: left;
+}
+
+.floatRight {
+  float: right;
+}
+
+.flWidth100 {
+  float: left;
+  width: 100%;
+}
+
+.marginBottom5 {
+  margin-bottom: 5px;
+}
+
+.happiness-score-link {
+  margin-top: 5px;
+  color: #d04a02;
+  font-weight: 400;
+  font-size:1rem;
+  float: right;
+}
+
+.happiness-score-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

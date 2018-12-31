@@ -20,13 +20,14 @@ import * as _ from "lodash";
 
 import { LoginComponent } from './login/login.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { ManageCommentsModalComponent } from './components/modals/manage-comments-modal/manage-comments-modal.component';
+import { HappinessScoreModalComponent } from './components/modals/happiness-score-modal/happiness-score-modal.component';
 import { ConfirmationModalComponent } from './components/modals/confirmation-modal/confirmation-modal.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NgEnterDirective } from './components/directives/ng-enter.directive';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { SmileyRatingComponent } from './components/smiley-rating/smiley-rating.component';
 
 // Firebase credentials - Setup
 var firebaseConfig = {
@@ -50,13 +51,14 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     LandingPageComponent,
-    ManageCommentsModalComponent,
+    HappinessScoreModalComponent,
     ConfirmationModalComponent,
     AdminPageComponent,
     HeaderComponent,
     FooterComponent,
     NgEnterDirective,
-    SideBarComponent
+    SideBarComponent,SmileyRatingComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -75,7 +77,7 @@ const appRoutes: Routes = [
   providers: [AppSharedService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
   entryComponents: [
-    ManageCommentsModalComponent
+    HappinessScoreModalComponent
   ]
 })
 export class AppModule { }

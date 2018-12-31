@@ -17,12 +17,16 @@ import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 export class SideBarComponent implements OnInit {
   // New variables
   exportData: any;
-  exportOptions: any;
+  exportHappinessScoreData: any;
+  exportCommentsOptions: any;
+  exportScoreOptions: any;
+  currentInfoUser: any;
 
   // Constructor
   constructor(private dragula: DragulaService, private afs: AngularFirestore, private router: Router) {
     this.exportData = [];
-    this.exportOptions = {
+    this.exportHappinessScoreData = [];
+    this.exportCommentsOptions = {
       fieldSeparator: ',',
       quoteStrings: '"',
       decimalseparator: '.',
@@ -32,20 +36,27 @@ export class SideBarComponent implements OnInit {
       headers: ["Type", "Description", "Votes"]
     };
 
-    this.getCommentList();
+    this.exportScoreOptions = {
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true,
+      showTitle: false,
+      useBom: false,
+      headers: ["Description", "Score"]
+    };
+
+    this.currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
   }
 
-  // Download data 
-  downloadExcelFile() {
-    const formattedExportData = _.unionBy(this.exportData.wentWellList, this.exportData.wentWrongList, this.exportData.needToImproveList);
-    new Angular5Csv(formattedExportData, 'Retrospective', this.exportOptions);
-  }
-
-  getCommentList() {
+  // Download data - Comments list
+  downloadCommentsList() {
     const _this = this;
+    this.exportData = [];
     // Add firestore listerner to watch the collection
-    this.afs.firestore.collection('comments')
-      .onSnapshot(function (querySnapshot) {
+    let meetingIdPath = this.afs.firestore.collection("meetingInfo").doc(this.currentInfoUser.meetingId);
+    meetingIdPath.collection('comments')
+      .get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           const data = doc.data();
           let _tempObj = {};
@@ -53,8 +64,37 @@ export class SideBarComponent implements OnInit {
           (_this.exportData[data['category']['name']]) ? _this.exportData[data['category']['name']] : _this.exportData[data['category']['name']] = [];
           _this.exportData[data['category']['name']].push(_tempObj);
         });
+        setTimeout(function () {
+          // Assign values to export plugin
+          const formattedExportData = _.unionBy(_this.exportData.wentWellList, _this.exportData.wentWrongList, _this.exportData.needToImproveList);
+          new Angular5Csv(formattedExportData, 'Retrospective', this.exportCommentsOptions);
+        }, 100);
       });
   }
+
+  // Download happiness score
+  downloadHappinessScore() {
+    const _this = this;
+    this.exportHappinessScoreData = [];
+    // Add firestore listerner to watch the collection
+    let meetingIdPath = this.afs.firestore.collection("meetingInfo").doc(this.currentInfoUser.meetingId);
+    meetingIdPath.collection('userList')
+      .get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          const data = doc.data();
+          if (data.happinessScore) {
+            let _tempObj = {};
+            _tempObj = { description: data.happinessScore.feelDescription, vote: data.happinessScore.score };
+            _this.exportHappinessScoreData.push(_tempObj);
+          }
+        });
+        setTimeout(function () {
+          // Assign values to export plugin
+          new Angular5Csv(_this.exportHappinessScoreData, 'Happiness score', _this.exportScoreOptions);
+        }, 100);
+      });
+  }
+
   ngOnInit() {
   }
 

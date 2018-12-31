@@ -24,6 +24,8 @@ export class LoginComponent {
   selectedRole: any = {};
   classNames: string;
   meetingId: string;
+  projectInfo: string;
+  
 
   constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router, private appVariable: AppSharedService) {
     this.classNames = 'loginContainer';
@@ -34,11 +36,10 @@ export class LoginComponent {
   }
 
   registerUser() {
-    const docPath = `userInfo/${this.userInfo.userEmail}`;
-    const userList = this.afs.collection('userInfo');
+    const userList = this.afs.collection('meetingInfo').doc(this.meetingId);
     const currentInstance = this;
     this.appVariable.showLoading = true;
-    userList.doc(this.userInfo.userEmail).set(
+    userList.collection('userList').doc(this.userInfo.userEmail).set(
       {
         'email': this.userInfo.userEmail,
         'displayName': this.userInfo.userDisplayName,
@@ -48,7 +49,8 @@ export class LoginComponent {
         sessionStorage.setItem('currentUserInfo', JSON.stringify({
           'email': currentInstance.userInfo.userEmail,
           'displayName': currentInstance.userInfo.userDisplayName,
-          'role': currentInstance.selectedRole
+          'role': currentInstance.selectedRole,
+          'meetingId':currentInstance.meetingId
         }));
         currentInstance.appVariable.showLoading = false;
         currentInstance.router.navigate(['landing']);
@@ -78,10 +80,10 @@ export class LoginComponent {
         if (!doc.exists) {
           console.log('No such document!');
         } else {
-          const projectInfo = doc.data();
-          sessionStorage.setItem('projectInfo', JSON.stringify(
-            projectInfo
-          ));
+          let projectInfo = doc.data();
+          this.meetingId = meetingId;
+          projectInfo['meetingId'] = meetingId;
+          sessionStorage.setItem('projectInfo', JSON.stringify(projectInfo));
         }
       })
       .catch(err => {

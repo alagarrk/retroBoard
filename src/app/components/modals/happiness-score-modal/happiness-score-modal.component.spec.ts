@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManageCommentsModalComponent } from './manage-comments-modal.component';
+import { HappinessScoreModalComponent } from './happiness-score-modal.component';
 
 describe('AddCommentsModalComponent', () => {
-  let component: ManageCommentsModalComponent;
-  let fixture: ComponentFixture<ManageCommentsModalComponent>;
+  let component: HappinessScoreModalComponent;
+  let fixture: ComponentFixture<HappinessScoreModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManageCommentsModalComponent ]
+      declarations: [ HappinessScoreModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManageCommentsModalComponent);
+    fixture = TestBed.createComponent(HappinessScoreModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

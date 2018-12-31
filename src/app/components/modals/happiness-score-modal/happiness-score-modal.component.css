@@ -46,6 +46,11 @@
   margin-left: 0.5rem;
 }
 
-.modal-header .close{
-    opacity: 0.7;
+.modal-header .close {
+  opacity: 0.7;
+}
+
+.happiness-feedback {
+  margin: 1rem 0;
+  height: 5rem;
 }

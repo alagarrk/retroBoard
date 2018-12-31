@@ -1,0 +1,22 @@
+<form name="commentsForm" class="comments-form-style" (ngSubmit)="f.form.valid && saveHappinessScore()" #f="ngForm" novalidate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Sprint happiness score</h4>
+    <button type="button" class="close pull-right" data-dismiss="modal" (click)="hideConfirmationModal()">
+      <i class="fa fa-close comment-close-icon" title="Close"></i>
+    </button>
+  </div>
+  <div class="modal-body comment-modal-body">
+    <div class="form-group">
+      <textarea class="form-control" rows="3" name="feelDescription" maxtextlength="150" [(ngModel)]="happinessScore.feelDescription"
+        #feelDescription="ngModel" placeholder="How do you feel about this sprint?"></textarea>
+    </div>
+    <div class="form-group happiness-feedback">
+      <smiley-rating [userHappinessScore]="happinessScore.score"></smiley-rating>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="buttons-combined pull-right">
+      <button class="button button-primary modal-btn" type="submit" data-dismiss="modal">Submit</button>
+    </div>
+  </div>
+</form>

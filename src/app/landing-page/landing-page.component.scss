@@ -124,9 +124,14 @@
 
 /* Styles for middle container */
 
+.comment-image-cntr {
+  width: 100%;
+  float: left;
+}
+
 .content-wrapper {
   margin-left: 0;
-  min-height: 500px!important;
+  min-height: 500px !important;
   .progress-description,
   .info-box-text {
     white-space: normal;
@@ -138,7 +143,7 @@
   }
   .add-comment-cntr {
     background: #f1f0f0;
-    padding: 1rem 1rem 0.1rem 1rem;
+    padding: 1rem 0.5rem 0.1rem 0.5rem;
     margin-bottom: 1rem;
   }
   .add-comment-icon {
@@ -149,10 +154,13 @@
   }
   .comment-close-icon {
     position: absolute;
-    right: 0.8rem;
-    top: 0.8rem;
-    font-size: 14px;
+    right: -0.5rem;
+    top: -0.5rem;
+    font-size: 16px;
     cursor: pointer;
+    background: #f1f0f0;
+    border-radius: 100%;
+    padding: 0.4rem;
   }
 }
 
@@ -176,6 +184,18 @@
     float: left;
     margin: 3px 0px 0 10px;
     font-size: 14px;
+    cursor: pointer;
+  }
+}
+
+.likes-cntr {
+  position: absolute;
+  right: 0;
+  bottom: 0rem;
+  padding: 0.2rem 0.5rem;
+  background: #d24900;
+  .likes-icon {
+    font-size: 16px;
     cursor: pointer;
   }
 }
@@ -205,11 +225,191 @@
   margin-top: 5px;
   color: #d04a02;
   font-weight: 400;
-  font-size:1rem;
+  font-size: 1rem;
   float: right;
 }
 
 .happiness-score-link:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* Styles for kudo card theme */
+
+.kudo-card-style {
+  border: 1px solid #cccccc;
+  background: white;
+  border-radius: 5px;
+  float: left;
+  height: 12.5rem;
+  width: 100%;
+}
+
+.card-panel-margin {
+  margin: 1rem;
+  padding: 0;
+  width: 31% !important;
+}
+
+.kudo-card-header {
+  float: left;
+  width: 100%;
+  border-bottom: 1px solid #cccccc;
+  padding: 0.8rem 1rem;
+  background: #cccccc;
+  text-align: center;
+  font-weight: bold;
+  height: 3rem;
+}
+
+.kudo-card-header.bg-color-1 {
+  border-color: green;
+  background: green;
+  color: white;
+}
+
+.kudo-card-header.bg-color-2 {
+  border-color: #0089EB;
+  background: #0089EB;
+  color: white;
+}
+
+.kudo-card-header.bg-color-3 {
+  border-color: #0A4E7B;
+  background: #0A4E7B;
+  color: white;
+}
+
+.kudo-card-header.bg-color-4 {
+  border-color: #F06300;
+  background: #F06300;
+  color: white;
+}
+
+.kudo-card-header.bg-color-5 {
+  border-color: #EB8C00;
+  background: #EB8C00;
+  color: white;
+}
+
+.kudo-card-header.bg-color-6 {
+  border-color: #BD10E0;
+  background: #BD10E0;
+  color: white;
+}
+
+.kudo-card-header.bg-color-7 {
+  border-color: #634A8F;
+  background: #634A8F;
+  color: white;
+}
+
+.card-image-cntr,
+.comment-image-cntr {
+  width: 25%;
+  float: left;
+}
+
+.card-image-cntr img,
+.comment-image-cntr img {
+  width: 100%;
+  padding: 0.5rem;
+  max-height: 7.5rem;
+}
+
+.card-content-cntr,
+.comment-content-cntr {
+  width: 74%;
+  float: left;
+  padding: 0.5rem;
+}
+
+.comment-content-cntr {
+  width: 74%;
+  float: right;
+  padding: 0.5rem;
+  padding-bottom: 0;
+}
+
+.card-content-cntr textarea,
+.comment-content-cntr textarea {
+  height: 6.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-text-style {
+  text-decoration: underline;
+  text-decoration-color: #dad6d6;
+  text-underline-position: under;
+  line-height: 24px;
+}
+
+.retro-theme-info {
+  margin: 0.5rem 0;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.viewMoreLink {
+  margin: 0 0.5rem;
+  color: #d24900;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.post-kudo-btn {
+  width: auto;
+  height: 40px;
+  background: #d04a02;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #d04a02;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  outline: none;
+  cursor: pointer;
+  padding: 0 1rem;
+}
+
+.post-kudo-cntr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.kudo-card-row {
+  width: 100%;
+  float: left;
+  margin: 0;
+}
+
+.add-kudos-title {
+  width: 86%;
+  border: none;
+  padding: 0 0.5rem;
+}
+
+.add-kudos-close-icon {
+  font-size: 18px;
+  position: absolute;
+  right: 0.8rem;
+  top: 1.1rem;
+  cursor: pointer;
+}
+
+.add-kudos-img-btn {
+  float: left;
+  padding: 0 0.5rem 0.5rem 1.1rem;
+  font-size: 0.8rem;
+  text-align: center;
+  text-decoration: underline;
+  color: #d24900;
+  border: none;
+  box-shadow: none;
+  transition: none;
+  background: transparent; //-webkit-appearance: none;
 }

@@ -21,6 +21,13 @@
             placeholder="# of members" name="totalTeamCount" [ngClass]="{ 'has-error': f.submitted && !totalTeamCount.valid }"
             required>
         </div>
+        <span class="retro-title">Retrospective theme</span>
+        <div class="text-content">
+          <select class="form-control" name="commentType" [(ngModel)]="selectedTheme">
+            <option *ngFor="let theme of themeOptions" [ngValue]="theme">{{theme.name}}</option>
+          </select>
+        </div>
+
       </div>
       <div class="col-md-12 padding0" *ngIf="showRetroLink">
         <div class="clearfix field-div">

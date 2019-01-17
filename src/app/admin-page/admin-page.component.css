@@ -1,8 +1,7 @@
 /* Admin page - Styles */
 
 .adminContainer {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-  url('/assets/retro-bg-img.jpg') no-repeat fixed center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/retro-bg-img.jpg') no-repeat fixed center center;
   background-size: cover;
   font-family: 'Roboto';
   font-weight: 400;
@@ -30,7 +29,7 @@
 }
 
 .has-error {
-  border: 1px solid #E0301E!important;
+  border: 1px solid #E0301E !important;
 }
 
 .error-msg-style {
@@ -59,7 +58,8 @@
   color: #333;
 }
 
-.admin-block input {
+.admin-block input,
+.admin-block select {
   width: 100%;
   height: 42px;
   box-sizing: border-box;
@@ -67,12 +67,13 @@
   border: 1px solid #ccc;
   margin-bottom: 20px;
   font-size: 14px;
-  padding-left:15px;
+  padding-left: 15px;
   font-family: 'Roboto';
   outline: none;
 }
 
-.admin-block .text-content input {
+.admin-block .text-content input,
+.admin-block .text-content select {
   padding: 0 20px 0 50px;
 }
 
@@ -84,6 +85,14 @@
   position: absolute;
   top: 10px;
   left: 12px;
+}
+
+.retro-title {
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  float: left;
+  color: #333333;
 }
 
 .material-icons.input-icon-style {
@@ -115,4 +124,3 @@
 .admin-block button:hover {
   background: #d04a02;
 }
-

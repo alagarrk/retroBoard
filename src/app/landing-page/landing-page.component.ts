@@ -3,13 +3,13 @@ import { Router } from '@angular/router'
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
-
 import 'rxjs/add/operator/map';
 import * as _ from "lodash";
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { HappinessScoreModalComponent } from '../components/modals/happiness-score-modal/happiness-score-modal.component';
+import { AddKudosModalComponent } from '../components/modals/add-kudos/add-kudos.component';
 
 import { SmileyRatingComponent } from '../components/smiley-rating/smiley-rating.component';
 
@@ -29,6 +29,8 @@ interface cmdId extends Comment {
 })
 
 export class LandingPageComponent {
+  showMoreInfo: boolean;
+  // Id = 0; Start, Stop & Continue theme
   commentsCol: AngularFirestoreCollection<Comment>;
   commentList: any;
   currentInfoUser: any = [];
@@ -37,7 +39,6 @@ export class LandingPageComponent {
   commentDescription: string;
   public categoryList: any = [];
   comment: any = {}; // To pass values from view to component
-
   // Three categories of data
   wentWellList: any = [];
   wentWrongList: any = [];
@@ -47,9 +48,114 @@ export class LandingPageComponent {
   editCommentInfo: any = [];
   showActionBox: boolean;
   isEditComment: boolean;
+
+  // Id = 1; Kudo card theme
+  kudosTitle: string;
+  kudosMessage: string;
+  kudoImageType: any = [];
+
+  addKudos: any = {};
+  showAddKudoCard: boolean;
+  kudoCardList: any = [];
+
+  selectedKudoCardType: any = {};
   meetingInfo: any = [];
   listObservable: any;
+  projectInfo: any = [];
+
   constructor(private dragula: DragulaService, private afs: AngularFirestore, private modalService: BsModalService, private router: Router) {
+    this.showMoreInfo = false;
+    // Id = 0; Start, Stop & Continue theme
+    this.projectInfo = JSON.parse(sessionStorage.getItem('projectInfo'));
+    if (this.projectInfo.retroTheme.id === 0) {
+      this.initSCThemeVariable();
+    } else if (this.projectInfo.retroTheme.id === 1) {
+      this.initKudoThemeVariable();
+    }
+  }
+  // Show Happiness score modal popup
+  openHappinessScoreModal() {
+    // Show edit comments in modal popup
+    const modal = this.modalService.show(HappinessScoreModalComponent, { class: 'modal-popup-style' });
+    (<HappinessScoreModalComponent>modal.content).showHappinessScoreModal(this.currentInfoUser);
+    (<HappinessScoreModalComponent>modal.content).onClose.subscribe(result => {
+      if (result) {
+        //this.getCommentList();
+      }
+    });
+  }
+
+  // Kudo card theme - Starts
+  initKudoThemeVariable() {
+    this.showAddKudoCard = false;
+    this.addKudos = {
+      kudosTitle: 'Keep smile',
+      kudosMessage: ''
+    };
+    this.kudoImageType = [{ id: 0, url: 'assets/kudo-card-image/care.png', name: 'Care' }, { id: 1, url: 'assets/kudo-card-image/creative.png', name: 'Creative' }, { id: 2, url: 'assets/kudo-card-image/teacher.png', name: 'Mentoring' }, { id: 3, url: 'assets/kudo-card-image/crown.png', name: 'Crown' },
+    { id: 4, url: 'assets/kudo-card-image/gift.png', name: 'Gift' }, { id: 5, url: 'assets/kudo-card-image/heart.png', name: 'Heart' }, { id: 6, url: 'assets/kudo-card-image/kiss.png', name: 'Kiss' },
+    { id: 7, url: 'assets/kudo-card-image/podium.png', name: 'Podium' }, { id: 8, url: 'assets/kudo-card-image/reward.png', name: 'Reward' }, { id: 9, url: 'assets/kudo-card-image/support.png', name: 'Support' },
+    { id: 10, url: 'assets/kudo-card-image/team.png', name: 'Team work' }, { id: 11, url: 'assets/kudo-card-image/trophy.png', name: 'Trophy' }, { id: 12, url: 'assets/kudo-card-image/winner.png', name: 'Winner' }
+    ];
+    this.selectedKudoCardType = this.kudoImageType[0];
+  }
+
+  // Show Happiness score modal popup
+  openAddKudosModal() {
+    // Show edit comments in modal popup
+    const modal = this.modalService.show(AddKudosModalComponent, { class: 'modal-popup-style' });
+    (<AddKudosModalComponent>modal.content).showAddCommentsModal(this.currentInfoUser);
+    (<AddKudosModalComponent>modal.content).onClose.subscribe(result => {
+      if (result) {
+        //this.getCommentList();
+      }
+    });
+  }
+
+  // Toggle add kudo card
+  toggleAddKudoCard(isShow) {
+    this.initKudoThemeVariable();
+    this.showAddKudoCard = isShow;
+  }
+
+  // Add new kudo card into db
+  addKudoCard(event) {
+    let kudoMessage = this.addKudos.kudosMessage.slice(0, -1);
+    if (kudoMessage !== "") {  // if comment is not null
+      this.showAddKudoCard = false;
+      kudoMessage =
+        this.meetingInfo.collection('comments').add(
+          {
+            description: kudoMessage,
+            likes: 0,
+            kudoCardType: this.selectedKudoCardType,
+            currentLikeStatus: {
+              userLikesList: [], selfStatus: false
+            },
+            title: this.addKudos.kudosTitle,
+            userInfo: this.currentInfoUser
+          })
+          .then(function () {
+            event.stopImmediatePropagation();
+          })
+          .catch(function (error) {
+            console.error("Error writing document: ", error);
+          });
+    }
+  }
+
+  // Delete kudo card
+  deleteKudoCard(cardId) {
+    //this.afs.doc('comments/' + cmdId).delete();
+    this.meetingInfo.collection('comments').doc(cardId).delete();
+  }
+
+  // Kudo card theme - Ends
+
+
+  // Start, Stop & Continue theme - Starts
+  // To initialize variables
+  initSCThemeVariable() {
     this.showAddCommentBox.wentWellList = false;
     this.comment = { "wentWellList": { commentDescription: '' }, "wentWrongList": { commentDescription: '' }, "needToImproveList": { commentDescription: '' } };
     this.categoryList = [{ name: 'wentWellList', value: "What went well?" }, { name: 'wentWrongList', value: "What went wrong?" }, { name: 'needToImproveList', value: "What need to improve?" }];
@@ -60,9 +166,9 @@ export class LandingPageComponent {
     ];
     this.selectedCommentType = this.commentType[9];
     this.isEditComment = false;
-
   }
 
+  // Toggle comment box
   toggleCommentTxtbx(categoryId, isEditComment) {
     this.comment[this.categoryList[categoryId].name].commentDescription = '';
     this.showAddCommentBox[this.categoryList[categoryId].name] = !this.showAddCommentBox[this.categoryList[categoryId].name];
@@ -75,7 +181,6 @@ export class LandingPageComponent {
     if (commentDesc !== '') {  // if comment is not null
       this.showAddCommentBox[this.categoryList[categoryId].name] = false;
       commentDesc = commentDesc.slice(0, -1);
-      console.log(`After trim${commentDesc}`);
       this.meetingInfo.collection('comments').add(
         {
           description: commentDesc,
@@ -125,17 +230,6 @@ export class LandingPageComponent {
     this.comment[this.categoryList[categoryId].name].commentDescription = selectedComment.description;
   }
 
-  openHappinessScoreModal() {
-    // Show edit comments in modal popup
-    const modal = this.modalService.show(HappinessScoreModalComponent, { class: 'modal-popup-style' });
-    (<HappinessScoreModalComponent>modal.content).showHappinessScoreModal(this.currentInfoUser);
-    (<HappinessScoreModalComponent>modal.content).onClose.subscribe(result => {
-      if (result) {
-        //this.getCommentList();
-      }
-    });
-  }
-
   //Delete command
   deleteComments(cmdId) {
     //this.afs.doc('comments/' + cmdId).delete();
@@ -144,7 +238,7 @@ export class LandingPageComponent {
 
   //update likes count
   updateLikes(comment, isLike) {
-    const likesCount = this.afs.collection("comments").doc(comment.id);
+    const likesCount = this.meetingInfo.collection("comments").doc(comment.id);
     const _this = this;
     // To userLikesList - check user exist or not and update the values
     const findUserIndex = _.indexOf(comment.currentLikeStatus.userLikesList, this.currentInfoUser.email);
@@ -166,6 +260,7 @@ export class LandingPageComponent {
         console.error("Error updating document: ", error);
       });
   }
+  // Start, Stop & Continue theme - Ends
 
   // Init function
   ngOnInit() {
@@ -177,22 +272,29 @@ export class LandingPageComponent {
       this.router.navigate(['login']);
     }
 
-    const projectInfo = JSON.parse(sessionStorage.getItem('projectInfo'));
-    this.meetingInfo = this.afs.collection("meetingInfo").doc(projectInfo.meetingId);
+    this.meetingInfo = this.afs.collection("meetingInfo").doc(this.projectInfo.meetingId);
 
     // Add firestore listerner to watch the collection
-    this.afs.firestore.collection("meetingInfo").doc(projectInfo.meetingId).collection('comments')
+    this.afs.firestore.collection("meetingInfo").doc(this.projectInfo.meetingId).collection('comments')
       .onSnapshot(function (querySnapshot) {
         _this.wentWellList = [];
         _this.wentWrongList = [];
         _this.needToImproveList = [];
+        _this.kudoCardList = [];
         querySnapshot.forEach(function (doc) {
-          const data = doc.data();
-          data.id = doc.id;
-          const isExist = _.includes(data.currentLikeStatus.userLikesList, _this.currentInfoUser.email);
-          data.showActionBox = false;
-          data.currentLikeStatus.selfStatus = isExist;
-          _this[data['category']['name']].push(data);
+          // Id = 0; Start, Stop & Continue theme 
+          if (_this.projectInfo.retroTheme.id === 0) {
+            const data = doc.data();
+            data.id = doc.id;
+            const isExist = _.includes(data.currentLikeStatus.userLikesList, _this.currentInfoUser.email);
+            data.showActionBox = false;
+            data.currentLikeStatus.selfStatus = isExist;
+            _this[data['category']['name']].push(data);
+          } else if (_this.projectInfo.retroTheme.id === 1) {
+            const data = doc.data();
+            data.id = doc.id;
+            _this.kudoCardList.push(data);
+          }
         });
       });
   }

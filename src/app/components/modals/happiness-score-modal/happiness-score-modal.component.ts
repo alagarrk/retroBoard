@@ -27,7 +27,7 @@ export class HappinessScoreModalComponent implements OnInit {
     private _bsModalRef: BsModalRef, private afs: AngularFirestore
   ) {
     const userInfoFromSS = JSON.parse(sessionStorage.getItem('currentUserInfo'));
-    this.happinessScore = userInfoFromSS.happinessScore ? userInfoFromSS.happinessScore : { 'feelDescription': '', score: 0 };
+    this.happinessScore = userInfoFromSS.happinessScore ? userInfoFromSS.happinessScore : { feelDescription: '', score: 3,name:'' };
   }
 
   // Init method - onload
@@ -46,7 +46,7 @@ export class HappinessScoreModalComponent implements OnInit {
     const currentInstance = this;
     const userList = this.afs.collection('meetingInfo').doc(this.currentInfoUser.meetingId);
     this.currentInfoUser.happinessScore = this.currentInfoUser.happinessScore ? this.currentInfoUser.happinessScore : {};
-    this.currentInfoUser.happinessScore = { "feelDescription": this.happinessScore.feelDescription, score: this.smileyModalData.userHappinessScore };  
+    this.currentInfoUser.happinessScore = { "feelDescription": this.happinessScore.feelDescription, score: this.smileyModalData.userHappinessScore, name: this.happinessScore.name };  
     // To update comments
     userList.collection('userList').doc(this.currentInfoUser.email).update(this.currentInfoUser)
       .then(function () {

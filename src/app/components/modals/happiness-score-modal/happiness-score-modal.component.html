@@ -6,12 +6,16 @@
     </button>
   </div>
   <div class="modal-body comment-modal-body">
-    <div class="form-group">
-      <textarea class="form-control" rows="3" name="feelDescription" maxtextlength="150" [(ngModel)]="happinessScore.feelDescription"
+    <div class="form-group happiness-feedback flWidth100">
+      <smiley-rating [userHappinessScore]="happinessScore.score"></smiley-rating>
+    </div>
+    <div class="form-group flWidth100">
+      <textarea class="form-control" rows="3" name="feelDescription" maxlength="150" [(ngModel)]="happinessScore.feelDescription"
         #feelDescription="ngModel" placeholder="How do you feel about this sprint?"></textarea>
     </div>
-    <div class="form-group happiness-feedback">
-      <smiley-rating [userHappinessScore]="happinessScore.score"></smiley-rating>
+    <div class="form-group flWidth100">
+      <input type="text" class="form-control text-input" [(ngModel)]="happinessScore.name" #name="ngModel" placeholder="Your name (Optional)"
+        name="userName">
     </div>
   </div>
   <div class="modal-footer">

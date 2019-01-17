@@ -14,6 +14,8 @@ export class AdminPageComponent implements OnInit {
   projectName: string;
   currentSprint: string;
   totalTeamCount: string;
+  selectedTheme: any = {};
+  themeOptions: any = [];
 
   retroLink: string;
   dynamicUrlInfo: string;
@@ -23,6 +25,14 @@ export class AdminPageComponent implements OnInit {
     this.projectName = "test";
     const isLocal = true;
     this.dynamicUrlInfo = isLocal ? 'localhost:4200' : 'codevaders.com/index.html#';
+
+    this.themeOptions = [
+      { id: 0, name:  `Start,Stop & Continue theme` },
+       { id:1, name: 'Appreciation - Kudo card theme' }
+      //  , 
+      //  { id: 2, name: 'DAKI – Drop, Add, Keep, improve' }
+    ];
+    this.selectedTheme = this.themeOptions[0];
   }
 
   scheduleMeeting() {
@@ -33,7 +43,8 @@ export class AdminPageComponent implements OnInit {
       {
         project: this.userInfo.projectName,
         sprint: this.userInfo.currentSprint,
-        teamCount: this.userInfo.totalTeamCount
+        teamCount: this.userInfo.totalTeamCount,
+        retroTheme:this.selectedTheme
       })
       .then(function (docRef) {
         _this.sharedVariable.showLoading = false;

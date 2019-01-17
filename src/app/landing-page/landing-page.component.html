@@ -1,15 +1,32 @@
 <div class="wrapper">
   <app-header></app-header>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <!-- Content Wrapper. Contains Start, Stop & Continue retro theme content -->
+  <div class="content-wrapper" *ngIf="projectInfo.retroTheme.id===0">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
         Start..., Stop!!! and Continue...Retrospective Theme
         <!-- <small>Start(Add to the process), Stop(No longer wants to do) & Continue(Continue doing in future)</small> -->
-        <span class="happiness-score-link" (click)="openHappinessScoreModal()"><i class="fa fa-smile-o" aria-hidden="true"></i> Give your happiness score</span>
+        <span class="happiness-score-link" (click)="openHappinessScoreModal()">
+          <i class="fa fa-smile-o" aria-hidden="true"></i> Give your happiness score</span>
       </h1>
+      <div class="retro-theme-info">
+        <p>Start, Stop, Continue is an action-oriented retrospective technique that encourages participants to come up with
+          practical ideas for team-based improvement. Look back at the last sprint (stop & continue) while also looking forward
+          to the next sprint (start doing).
+          <!-- <span class="viewMoreLink" (click)="showMoreInfo=true" *ngIf="!showMoreInfo">More info
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+          </span> -->
+        </p>
+        <!-- <p *ngIf="showMoreInfo">
+          <b>How to do it : </b> You can create your cards and type what you like on them and post kudo cards to people that
+          you want to thank for their behavior during the Sprint.
+          <span class="viewMoreLink" (click)="showMoreInfo=false">Hide info
+            <i class="fa fa-caret-up" aria-hidden="true"></i>
+          </span>
+        </p> -->
+      </div>
     </section>
 
     <!-- Main content -->
@@ -26,28 +43,33 @@
             <div class="box-body">
               <!-- /.info-box -->
               <!-- To add new comment - Enable/disable based on events - Starts -->
-              <div class="add-comment-cntr posRelative" [hidden]="!showAddCommentBox.wentWellList">
+              <div class="add-comment-cntr posRelative flWidth100" [hidden]="!showAddCommentBox.wentWellList">
                 <i class="fa fa-close comment-close-icon" title="Close" (click)="toggleCommentTxtbx(0,false)"></i>
                 <form class="comment-textBox-cntr" #f="ngForm" (keyup.enter)="isEditComment ? updateComments($event,0) : addComments($event,0)">
-                  <div class="form-group">
-                    <label>Comment type</label>
-                    <select class="form-control" name="commentType" [(ngModel)]="selectedCommentType">
-                      <option *ngFor="let type of commentType" [ngValue]="type">{{type.name}}</option>
-                    </select>
+                  <div class="comment-image-cntr floatLeft">
+                    <div class="form-group">
+                      <img class="card-img-top" src="{{selectedCommentType.url}}" alt="Went well image">
+                      <select class="form-control add-kudos-img-btn" name="commentType" [(ngModel)]="selectedCommentType">
+                        <option *ngFor="let type of commentType" [ngValue]="type">{{type.name}}</option>
+                      </select>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <textarea class="form-control" rows="3" name="commentDescription" maxtextlength="150" [(ngModel)]="comment.wentWellList.commentDescription"
-                      #commentDescription="ngModel" placeholder="Enter your comments" required></textarea>
-                    <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
-                      *Press enter to save your comments
+                  <div class="comment-content-cntr floatRight">
+                    <div class="form-group">
+                      <textarea class="form-control" rows="3" name="commentDescription" maxlength="150" [(ngModel)]="comment.wentWellList.commentDescription"
+                        #commentDescription="ngModel" placeholder="Enter your comments... Max 150 characters" required></textarea>
+                      <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
+                        *Press enter to save your comments
+                      </div>
                     </div>
                   </div>
                 </form>
               </div>
               <!-- To add new comment - Enable/disable based on events - Ends -->
-              <div class="info-box-outCntr" *ngIf="wentWellList.length>0">
+              <div class="info-box-outCntr flWidth100" *ngIf="wentWellList.length>0">
                 <!-- (mouseenter)="wentWell.showActionBox = true" (mouseleave)="wentWell.showActionBox = false" -->
-                <div class="info-box bg-purple" [class.highlight-comment]="wentWell.userInfo.email === currentInfoUser.email" *ngFor="let wentWell of wentWellList">
+                <div class="info-box bg-purple posRelative" [class.highlight-comment]="wentWell.userInfo.email === currentInfoUser.email"
+                  *ngFor="let wentWell of (wentWellList | orderBy:'likes' : true)">
                   <span class="info-box-icon">
                     <img src="{{wentWell.commentType.url}}" class="info-box-image" title="{{wentWell.commentType.name}}" />
                     <div class="info-comment-edit-box" [hidden]="(wentWell.userInfo.email !== currentInfoUser.email)">
@@ -60,10 +82,15 @@
                       {{wentWell.description}}
                     </span>
                   </div>
+                  <div class="likes-cntr">
+                    <i class="fa fa-thumbs-o-up likes-icon" title="Like it" *ngIf="!wentWell.currentLikeStatus.selfStatus" (click)="updateLikes(wentWell,true)"></i>
+                    <i class="fa fa-thumbs-up likes-icon" title="You liked it" *ngIf="wentWell.currentLikeStatus.selfStatus" (click)="updateLikes(wentWell,false)"></i>
+                    <span class="likes-count">{{wentWell.likes}}</span>
+                  </div>
                   <!-- /.info-box-content -->
                 </div>
               </div>
-              <div class="info-box no-feed-found bg-purple" *ngIf="wentWellList.length===0"> No comments found</div>
+              <div class="info-box no-feed-found bg-purple flWidth100" *ngIf="wentWellList.length===0"> No comments found</div>
             </div>
           </div>
         </div>
@@ -78,27 +105,32 @@
             <!-- /.box-header -->
             <div class="box-body">
               <!-- /.info-box -->
-              <div class="add-comment-cntr posRelative" [hidden]="!showAddCommentBox.wentWrongList">
+              <div class="add-comment-cntr posRelative flWidth100" [hidden]="!showAddCommentBox.wentWrongList">
                 <i class="fa fa-close comment-close-icon" title="Close" (click)="toggleCommentTxtbx(1,false)"></i>
                 <form class="comment-textBox-cntr" #f="ngForm" (keyup.enter)="isEditComment ? updateComments($event,1) : addComments($event,1)">
-                  <div class="form-group">
-                    <label>Comment type</label>
-                    <select class="form-control" name="commentType" [(ngModel)]="selectedCommentType">
-                      <option *ngFor="let type of commentType" [ngValue]="type">{{type.name}}</option>
-                    </select>
+                  <div class="comment-image-cntr floatLeft">
+                    <div class="form-group">
+                      <img class="card-img-top" src="{{selectedCommentType.url}}" alt="Wentwrong comment image">
+                      <select class="form-control add-kudos-img-btn" name="commentType" [(ngModel)]="selectedCommentType">
+                        <option *ngFor="let type of commentType" [ngValue]="type">{{type.name}}</option>
+                      </select>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <textarea class="form-control" rows="3" name="commentDescription" maxtextlength="150" [(ngModel)]="comment.wentWrongList.commentDescription"
-                      #commentDescription="ngModel" placeholder="Enter your comments" required></textarea>
-                    <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
-                      *Press enter to save your comments
+                  <div class="comment-content-cntr floatRight">
+                    <div class="form-group">
+                      <textarea class="form-control" rows="3" name="commentDescription" maxlength="150" [(ngModel)]="comment.wentWrongList.commentDescription"
+                        #commentDescription="ngModel" placeholder="Enter your comments... Max 150 characters" required></textarea>
+                      <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
+                        *Press enter to save your comments
+                      </div>
                     </div>
                   </div>
                 </form>
               </div>
               <!-- Info Boxes -->
-              <div class="info-box-outCntr" *ngIf="wentWrongList.length>0">
-                <div class="info-box bg-orange" [class.highlight-comment]="wentWrong.userInfo.email === currentInfoUser.email" *ngFor="let wentWrong of wentWrongList">
+              <div class="info-box-outCntr flWidth100" *ngIf="wentWrongList.length>0">
+                <div class="info-box bg-orange posRelative" [class.highlight-comment]="wentWrong.userInfo.email === currentInfoUser.email"
+                  *ngFor="let wentWrong of (wentWrongList | orderBy:'likes' : true)">
                   <span class="info-box-icon">
                     <img src="{{wentWrong.commentType.url}}" class="info-box-image" title="{{wentWrong.commentType.name}}" />
                     <div class="info-comment-edit-box" [hidden]="(wentWrong.userInfo.email !== currentInfoUser.email)">
@@ -111,10 +143,15 @@
                       {{wentWrong.description}}
                     </span>
                   </div>
+                  <div class="likes-cntr">
+                    <i class="fa fa-thumbs-o-up likes-icon" title="Like it" *ngIf="!wentWrong.currentLikeStatus.selfStatus" (click)="updateLikes(wentWrong,true)"></i>
+                    <i class="fa fa-thumbs-up likes-icon" title="You liked it" *ngIf="wentWrong.currentLikeStatus.selfStatus" (click)="updateLikes(wentWrong,false)"></i>
+                    <span class="likes-count">{{wentWrong.likes}}</span>
+                  </div>
                   <!-- /.info-box-content -->
                 </div>
               </div>
-              <div class="info-box no-feed-found bg-orange" *ngIf="wentWrongList.length===0"> No comments found</div>
+              <div class="info-box no-feed-found bg-orange flWidth100" *ngIf="wentWrongList.length===0"> No comments found</div>
               <!-- /.info-box -->
             </div>
             <!-- /.box-body -->
@@ -130,26 +167,31 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <div class="add-comment-cntr posRelative" [hidden]="!showAddCommentBox.needToImproveList">
+              <div class="add-comment-cntr posRelative flWidth100" [hidden]="!showAddCommentBox.needToImproveList">
                 <i class="fa fa-close comment-close-icon" title="Close" (click)="toggleCommentTxtbx(2,false)"></i>
                 <form class="comment-textBox-cntr" #f="ngForm" (keyup.enter)="isEditComment ? updateComments($event,2) : addComments($event,2)">
-                  <div class="form-group">
-                    <label>Comment type</label>
-                    <select class="form-control" name="commentType" [(ngModel)]="selectedCommentType">
-                      <option *ngFor="let type of commentType" [ngValue]="type">{{type.name}}</option>
-                    </select>
+                  <div class="comment-image-cntr floatLeft">
+                    <div class="form-group">
+                      <img class="card-img-top" src="{{selectedCommentType.url}}" alt="Improve comment image">
+                      <select class="form-control add-kudos-img-btn" name="commentType" [(ngModel)]="selectedCommentType">
+                        <option *ngFor="let type of commentType" [ngValue]="type">{{type.name}}</option>
+                      </select>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <textarea class="form-control" rows="3" name="commentDescription" maxtextlength="150" [(ngModel)]="comment.needToImproveList.commentDescription"
-                      #commentDescription="ngModel" placeholder="Enter your comments" required></textarea>
-                    <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
-                      *Press enter to save your comments
+                  <div class="comment-content-cntr floatRight">
+                    <div class="form-group">
+                      <textarea class="form-control" rows="3" name="commentDescription" maxlength="150" [(ngModel)]="comment.needToImproveList.commentDescription"
+                        #commentDescription="ngModel" placeholder="Enter your comments... Max 150 characters" required></textarea>
+                      <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
+                        *Press enter to save your comments
+                      </div>
                     </div>
                   </div>
                 </form>
               </div>
-              <div class="info-box-outCntr" *ngIf="needToImproveList.length>0">
-                <div class="info-box bg-green" [class.highlight-comment]="needToImprove.userInfo.email === currentInfoUser.email" *ngFor="let needToImprove of needToImproveList">
+              <div class="info-box-outCntr flWidth100" *ngIf="needToImproveList.length>0">
+                <div class="info-box bg-green posRelative" [class.highlight-comment]="needToImprove.userInfo.email === currentInfoUser.email"
+                  *ngFor="let needToImprove of (needToImproveList | orderBy:'likes' : true)">
                   <span class="info-box-icon">
                     <img src="{{needToImprove.commentType.url}}" class="info-box-image" title="{{needToImprove.commentType.name}}" />
                     <div class="info-comment-edit-box" [hidden]="(needToImprove.userInfo.email !== currentInfoUser.email)">
@@ -162,14 +204,98 @@
                       {{needToImprove.description}}
                     </span>
                   </div>
+                  <div class="likes-cntr">
+                    <i class="fa fa-thumbs-o-up likes-icon" title="Like it" *ngIf="!needToImprove.currentLikeStatus.selfStatus" (click)="updateLikes(needToImprove,true)"></i>
+                    <i class="fa fa-thumbs-up likes-icon" title="You liked it" *ngIf="needToImprove.currentLikeStatus.selfStatus" (click)="updateLikes(needToImprove,false)"></i>
+                    <span class="likes-count">{{needToImprove.likes}}</span>
+                  </div>
                   <!-- /.info-box-content -->
                 </div>
               </div>
-              <div class="info-box no-feed-found bg-green" *ngIf="needToImproveList.length===0"> No comments found</div>
+              <div class="info-box no-feed-found bg-green flWidth100" *ngIf="needToImproveList.length===0"> No comments found</div>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Content Wrapper.Content Wrapper. Contains Appreciation - Kudo card theme content -->
+  <div class="content-wrapper" *ngIf="projectInfo.retroTheme.id===1">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Kudo Card Retrospective Theme
+        <span class="happiness-score-link" (click)="openHappinessScoreModal()">
+          <i class="fa fa-smile-o" aria-hidden="true"></i> Give your happiness score</span>
+      </h1>
+      <div class="retro-theme-info">
+        <p>This theme can be used every sprint as a way of appreciating good behavior towards colleagues.I believe that most
+          of us are so busy with our daily activities that we forget to appreciate what others do for the team or us. Through
+          the utilization of this retrospective, you can expect team members to feel appreciated by each other.
+          <span class="viewMoreLink" (click)="showMoreInfo=true" *ngIf="!showMoreInfo">More info
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+          </span>
+
+        </p>
+        <p *ngIf="showMoreInfo">
+          <b>How to do it : </b> You can create your cards and type what you like on them and post kudo cards to people that
+          you want to thank for their behavior during the Sprint.
+          <span class="viewMoreLink" (click)="showMoreInfo=false">Hide info
+            <i class="fa fa-caret-up" aria-hidden="true"></i>
+          </span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+      <div class="post-kudo-cntr">
+        <button type="submit" class="button button-wide margin-top-3 post-kudo-btn" (click)="toggleAddKudoCard(true)">
+          <i class="fa fa-share-alt" aria-hidden="true"></i> Share your kudo !!!</button>
+      </div>
+      <div class="row kudo-card-row">
+        <div class="col-sm-4 card-panel-margin" *ngIf="showAddKudoCard">
+          <div class="card kudo-card-style">
+            <form class="comment-textBox-cntr" #f="ngForm" (keyup.enter)="addKudoCard($event)">
+              <div class="card-header kudo-card-header">
+                <input type="text" class="text-input add-kudos-title" placeholder="Awesome job!!!" name="kudosTitle" [(ngModel)]="addKudos.kudosTitle"
+                  #kudosTitle="ngModel" [ngClass]="{'has-error': f.submitted && !kudosTitle.valid }" required>
+                <i class="fa fa-close add-kudos-close-icon" title="Close" (click)="toggleAddKudoCard(false)"></i>
+              </div>
+              <div class="card-image-cntr">
+                <img class="card-img-top" src="{{selectedKudoCardType.url}}" alt="Card image cap">
+                <select class="form-control add-kudos-img-btn" name="cardImgType" [(ngModel)]="selectedKudoCardType">
+                  <option *ngFor="let type of kudoImageType" [ngValue]="type">{{type.name}}</option>
+                </select>
+              </div>
+              <div class="card-content-cntr">
+                <textarea class="form-control" rows="3" name="kudosMessage" maxlength="150" style="resize: none;" [(ngModel)]="addKudos.kudosMessage"
+                  #kudosMessage="ngModel" placeholder="Share your feelings... Max 150 characters" [ngClass]="{'has-error': f.submitted && !kudosMessage.valid }"
+                  required></textarea>
+                <div class="text-right remain-box text-gray-lightest font-12 instruction-text">
+                  *Press enter to save your feelings
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-sm-4 card-panel-margin" *ngFor="let card of kudoCardList; index as i">
+          <div class="card kudo-card-style">
+            <div class="card-header kudo-card-header bg-color-{{(i+1)%7}}">{{card.title}}
+              <i class="fa fa-close add-kudos-close-icon" title="Delete" (click)="deleteKudoCard(card.id)" [hidden]="(card.userInfo.email !== currentInfoUser.email)"></i>
+            </div>
+            <div class="card-image-cntr">
+              <img class="card-img-top" src="{{card.kudoCardType.url}}" alt="Card image cap">
+            </div>
+            <div class="card-content-cntr">
+              <p class="card-text card-text-style">{{card.description}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

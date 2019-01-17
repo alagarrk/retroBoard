@@ -15,11 +15,14 @@ import { AppSharedService } from '../shared.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+import { OrderModule } from 'ngx-order-pipe';
 
 import * as _ from "lodash";
 
 import { LoginComponent } from './login/login.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { AddKudosModalComponent } from './components/modals/add-kudos/add-kudos.component';
+
 import { HappinessScoreModalComponent } from './components/modals/happiness-score-modal/happiness-score-modal.component';
 import { ConfirmationModalComponent } from './components/modals/confirmation-modal/confirmation-modal.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
@@ -53,16 +56,17 @@ const appRoutes: Routes = [
     LandingPageComponent,
     HappinessScoreModalComponent,
     ConfirmationModalComponent,
+    AddKudosModalComponent,
     AdminPageComponent,
     HeaderComponent,
     FooterComponent,
     NgEnterDirective,
-    SideBarComponent,SmileyRatingComponent
-    
+    SideBarComponent, SmileyRatingComponent
+
   ],
   imports: [
-    BrowserModule,
-    FormsModule, HttpModule, 
+    BrowserModule, OrderModule,
+    FormsModule, HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFirestoreModule,
@@ -77,7 +81,7 @@ const appRoutes: Routes = [
   providers: [AppSharedService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
   entryComponents: [
-    HappinessScoreModalComponent
+    HappinessScoreModalComponent, AddKudosModalComponent
   ]
 })
 export class AppModule { }

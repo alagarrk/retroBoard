@@ -21,6 +21,7 @@ export class SideBarComponent implements OnInit {
   exportCommentsOptions: any;
   exportScoreOptions: any;
   currentInfoUser: any;
+  projectInfo: any;
 
   // Constructor
   constructor(private dragula: DragulaService, private afs: AngularFirestore, private router: Router) {
@@ -43,10 +44,11 @@ export class SideBarComponent implements OnInit {
       showLabels: true,
       showTitle: false,
       useBom: false,
-      headers: ["Description", "Score"]
+      headers: ["Name", "Description", "Score"]
     };
 
     this.currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
+    this.projectInfo = JSON.parse(sessionStorage.getItem('projectInfo'));
   }
 
   // Download data - Comments list
@@ -60,14 +62,24 @@ export class SideBarComponent implements OnInit {
         querySnapshot.forEach(function (doc) {
           const data = doc.data();
           let _tempObj = {};
-          _tempObj = { type: data.category.value, description: data.description, likes: data.likes };
-          (_this.exportData[data['category']['name']]) ? _this.exportData[data['category']['name']] : _this.exportData[data['category']['name']] = [];
-          _this.exportData[data['category']['name']].push(_tempObj);
+          if (_this.projectInfo.retroTheme.id === 0) {
+            _tempObj = { type: data.category.value, description: data.description, likes: data.likes };
+            (_this.exportData[data['category']['name']]) ? _this.exportData[data['category']['name']] : _this.exportData[data['category']['name']] = [];
+            _this.exportData[data['category']['name']].push(_tempObj);
+          } else if (_this.projectInfo.retroTheme.id === 1) {
+            _tempObj = { title: data.title, description: data.description, likes: data.likes };
+            _this.exportData.push(_tempObj);
+          }
         });
         setTimeout(function () {
           // Assign values to export plugin
-          const formattedExportData = _.unionBy(_this.exportData.wentWellList, _this.exportData.wentWrongList, _this.exportData.needToImproveList);
-          new Angular5Csv(formattedExportData, 'Retrospective', this.exportCommentsOptions);
+          let formattedExportData = [];
+          if (_this.projectInfo.retroTheme.id === 0) {
+            formattedExportData = _.unionBy(_this.exportData.wentWellList, _this.exportData.wentWrongList, _this.exportData.needToImproveList);
+          } else if (_this.projectInfo.retroTheme.id === 1) {
+            formattedExportData = _this.exportData;
+          }
+          new Angular5Csv(formattedExportData, 'Retrospective', _this.exportCommentsOptions);
         }, 100);
       });
   }
@@ -84,7 +96,7 @@ export class SideBarComponent implements OnInit {
           const data = doc.data();
           if (data.happinessScore) {
             let _tempObj = {};
-            _tempObj = { description: data.happinessScore.feelDescription, vote: data.happinessScore.score };
+            _tempObj = { name: data.happinessScore.name, description: data.happinessScore.feelDescription, vote: data.happinessScore.score };
             _this.exportHappinessScoreData.push(_tempObj);
           }
         });

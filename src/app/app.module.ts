@@ -34,12 +34,12 @@ import { SmileyRatingComponent } from './components/smiley-rating/smiley-rating.
 
 // Firebase credentials - Setup
 var firebaseConfig = {
-  apiKey: "AIzaSyDWybIpYwgtCtP3O-HUf0OJKJt4xOy_qx8",
-  authDomain: "retroboard-app.firebaseapp.com",
-  databaseURL: "https://retroboard-app.firebaseio.com",
-  projectId: "retroboard-app",
-  storageBucket: "retroboard-app.appspot.com",
-  messagingSenderId: "552084718022"
+  apiKey: "AIzaSyD_IB4qwyLrmPD0sqz5IzUvq58Yokp7mXY",
+  authDomain: "retroboard-app-a9316.firebaseapp.com",
+  databaseURL: "https://retroboard-app-a9316.firebaseio.com",
+  projectId: "retroboard-app-a9316",
+  storageBucket: "retroboard-app-a9316.appspot.com",
+  messagingSenderId: "227208529026"
 };
 
 const appRoutes: Routes = [

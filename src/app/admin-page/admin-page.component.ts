@@ -23,7 +23,7 @@ export class AdminPageComponent implements OnInit {
 
   constructor(private afs: AngularFirestore, private sharedVariable: AppSharedService) {
     this.projectName = "test";
-    const isLocal = true;
+    const isLocal = false;
     this.dynamicUrlInfo = isLocal ? 'localhost:4200' : 'codevaders.com/index.html#';
 
     this.themeOptions = [
@@ -43,7 +43,7 @@ export class AdminPageComponent implements OnInit {
       {
         project: this.userInfo.projectName,
         sprint: this.userInfo.currentSprint,
-        teamCount: this.userInfo.totalTeamCount,
+        //teamCount: this.userInfo.totalTeamCount,
         retroTheme:this.selectedTheme
       })
       .then(function (docRef) {

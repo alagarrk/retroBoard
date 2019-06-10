@@ -24,6 +24,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AddKudosModalComponent } from './components/modals/add-kudos/add-kudos.component';
 
 import { HappinessScoreModalComponent } from './components/modals/happiness-score-modal/happiness-score-modal.component';
+import { ActionItemModalComponent } from './components/modals/action-item-modal/action-item-modal.component';
+
 import { ConfirmationModalComponent } from './components/modals/confirmation-modal/confirmation-modal.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -54,7 +56,7 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     LandingPageComponent,
-    HappinessScoreModalComponent,
+    HappinessScoreModalComponent, ActionItemModalComponent,
     ConfirmationModalComponent,
     AddKudosModalComponent,
     AdminPageComponent,
@@ -81,7 +83,7 @@ const appRoutes: Routes = [
   providers: [AppSharedService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
   entryComponents: [
-    HappinessScoreModalComponent, AddKudosModalComponent
+    HappinessScoreModalComponent, ActionItemModalComponent, AddKudosModalComponent
   ]
 })
 export class AppModule { }

@@ -6,7 +6,7 @@
         <div class="text-content">
           <i class="material-icons input-icon-style md-light md-inactive">folder_special
           </i>
-          <input type="text" class="text-input project-name" [(ngModel)]="userInfo.projectName" #projectName="ngModel" placeholder="Project name"
+          <input type="text" class="text-input project-name" [(ngModel)]="userInfo.projectName" #projectName="ngModel" placeholder="Name of the project"
             name="projectName" [ngClass]="{ 'has-error': f.submitted && !projectName.valid }" required>
         </div>
         <div class="text-content">
@@ -15,12 +15,12 @@
             placeholder="Current sprint" name="currentSprint" [ngClass]="{ 'has-error': f.submitted && !currentSprint.valid }"
             required>
         </div>
-        <div class="text-content">
+        <!-- <div class="text-content">
           <i class="material-icons input-icon-style md-light md-inactive">supervisor_account</i>
           <input type="number" name="quantity" min="1" max="25" class="text-input" [(ngModel)]="userInfo.totalTeamCount" #totalTeamCount="ngModel"
             placeholder="# of members" name="totalTeamCount" [ngClass]="{ 'has-error': f.submitted && !totalTeamCount.valid }"
             required>
-        </div>
+        </div> -->
         <span class="retro-title">Retrospective theme</span>
         <div class="text-content">
           <select class="form-control" name="commentType" [(ngModel)]="selectedTheme">

@@ -130,8 +130,7 @@
 }
 
 .content-wrapper {
-  margin-left: 0;
-  min-height: 500px !important;
+  margin-left: 0; min-height: 500px !important;
   .progress-description,
   .info-box-text {
     white-space: normal;
@@ -412,4 +411,24 @@
   box-shadow: none;
   transition: none;
   background: transparent; //-webkit-appearance: none;
+}
+
+// Styles - Floating icon
+.ai-float-btn {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+  cursor: pointer;
+}
+
+.float-btn-icn {
+  margin-top: 1.2rem;
+  font-size: 2.1rem;
 }

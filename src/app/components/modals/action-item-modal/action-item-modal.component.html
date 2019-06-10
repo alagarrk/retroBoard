@@ -1,0 +1,135 @@
+<div class="action-item-form-style">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Manage action items</h4>
+    <button type="button" class="close pull-right" data-dismiss="modal" (click)="hideConfirmationModal()">
+      <i class="fa fa-close comment-close-icon" title="Close"></i>
+    </button>
+  </div>
+  <div class="modal-body action-item-modal-body">
+    <div class="box">
+      <div class="box-header">
+        <div class="clearfix">
+          <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left actnItem-bckgrd-color" (click)="toggleNewItem(true)">Assign New Item</a>
+          <select class="form-control action-item-dropdown" name="commentType" [(ngModel)]="selectedRetroHistory">
+            <option *ngFor="let retroItem of retroHistory" [ngValue]="retroItem">{{retroItem.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="box-body no-padding">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="width2">#</th>
+              <th class="width20">Action items</th>
+              <th class="width18">Owner</th>
+              <th class="width20">Created date</th>
+              <th class="width15">Status</th>
+              <th class="width15">Priority</th>
+              <th class="width15"></th>
+            </tr>
+          </thead>
+        </table>
+        <div class="action-item-tbody">
+          <table class="table table-striped">
+            <tbody>
+              <tr *ngIf="showNewActionItem" class="edit-action-item">
+                <td class="width2">#</td>
+                <td class="width20">
+                  <select class="form-control edit-dropdown-width" [(ngModel)]="selectedComment" [ngModelOptions]="{standalone: true}" [ngClass]="{'highlight-comment': isHighlightComment}">
+                    <option *ngFor="let comment of commentList" [ngValue]="comment">{{comment.description}}</option>
+                  </select>
+                </td>
+                <td class="width18">
+                  <select class="form-control" [(ngModel)]="selectedUser" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let user of usersList" [ngValue]="user">{{user.displayName}}</option>
+                  </select>
+                </td>
+                <td class="paddingTop1 width20">--</td>
+                <td class="width15">
+                  <select class="form-control" [(ngModel)]="selectedStatus" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let status of statusList" [ngValue]="status">{{status.name}}</option>
+                  </select>
+                </td>
+                <td class="width15">
+                  <select class="form-control" [(ngModel)]="selectedPriority" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let priority of priorityList" [ngValue]="priority">{{priority.name}}</option>
+                  </select>
+                </td>
+                <td class="width15">
+                  <span class="icon-panel paddingRight5" title="Confirm" (click)="addActionItem()">
+                    <i class="fa fa-check"></i>
+                  </span>
+                  <span class="icon-panel" title="Delete" (click)="toggleNewItem(false)">
+                    <i class="fa fa-close"></i>
+                  </span>
+                </td>
+              </tr>
+              <ng-container *ngIf="actionItemList.length > 0">
+              <tr *ngFor="let actionItem of actionItemList; let i = index" [attr.data-index]="i">
+                <td class="width2">
+                  {{i+1}}
+                </td>
+                <td class="edit-dropdown-width width20">
+                  <span *ngIf="!actionItem.isEditMode">{{actionItem.comment.description}}</span>
+                  <span *ngIf="actionItem.isEditMode">
+                    <select type="number" class="form-control edit-dropdown-width" [(ngModel)]="selectedComment" [compareWith]="compareFn">
+                      <option *ngFor="let comment of commentList" [ngValue]="comment">{{comment.description}}</option>
+                    </select>
+                  </span>
+                </td>
+                <td class="width18">
+                  <span *ngIf="!actionItem.isEditMode"> {{actionItem.owner.displayName}}</span>
+                  <span *ngIf="actionItem.isEditMode">
+                    <select class="form-control" [(ngModel)]="selectedUser" [compareWith]="compareFn">
+                      <option *ngFor="let user of usersList" [ngValue]="user">{{user.displayName}}</option>
+                    </select>
+                  </span>
+                </td>
+                <td class="width20">
+                  <span *ngIf="actionItem.isEditMode">--</span>
+                  <span *ngIf="!actionItem.isEditMode">{{actionItem.createdDate| date:'yyyy-MM-dd'}}</span>
+                </td>
+                <td class="width15">
+                  <span *ngIf="!actionItem.isEditMode">{{actionItem.status.name}}</span>
+                  <span *ngIf="actionItem.isEditMode">
+                    <select class="form-control" [(ngModel)]="selectedStatus" [compareWith]="compareFn">
+                      <option *ngFor="let status of statusList" [ngValue]="status">{{status.name}}</option>
+                    </select>
+                  </span>
+                </td>
+                <td class="width15">
+                  <span class="label" [ngClass]="actionItem.priority.name" *ngIf="!actionItem.isEditMode">{{actionItem.priority.name}}</span>
+                  <span *ngIf="actionItem.isEditMode">
+                    <select class="form-control" [(ngModel)]="selectedPriority" [compareWith]="compareFn">
+                      <option *ngFor="let priority of priorityList" [ngValue]="priority">{{priority.name}}</option>
+                    </select>
+                  </span>
+                </td>
+                <td class="width15" *ngIf="!actionItem.isEditMode">
+                  <span class="icon-panel paddingRight5" title="Edit" (click)="editActionItem(actionItem)">
+                    <i class="fa fa-edit"></i>
+                  </span>
+                  <span class="icon-panel" title="Delete" (click)="deleteActionItem(actionItem.id)">
+                    <i class="fa fa-trash-o"></i>
+                  </span>
+                </td>
+                <td class="width15" *ngIf="actionItem.isEditMode">
+                  <span class="icon-panel paddingRight5" title="Confirm" (click)="updateActionItem($event,actionItem)">
+                    <i class="fa fa-check"></i>
+                  </span>
+                  <span class="icon-panel" title="Delete" (click)="actionItem.isEditMode=false">
+                    <i class="fa fa-close"></i>
+                  </span>
+                </td>
+              </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <div *ngIf="!showNewActionItem && actionItemList.length === 0" class="no-data-found">
+            No action item added
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

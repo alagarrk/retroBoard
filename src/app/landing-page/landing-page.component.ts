@@ -12,6 +12,7 @@ import { HappinessScoreModalComponent } from '../components/modals/happiness-sco
 import { AddKudosModalComponent } from '../components/modals/add-kudos/add-kudos.component';
 
 import { SmileyRatingComponent } from '../components/smiley-rating/smiley-rating.component';
+import { ActionItemModalComponent } from '../components/modals/action-item-modal/action-item-modal.component';
 
 interface Comment {
   userName: string;
@@ -261,6 +262,16 @@ export class LandingPageComponent {
       });
   }
   // Start, Stop & Continue theme - Ends
+
+  showActionItemList(){
+    // Show edit comments in modal popup
+    const modal = this.modalService.show(ActionItemModalComponent, { class: 'ai-modal-popup-style' });
+    (<ActionItemModalComponent>modal.content).onClose.subscribe(result => {
+      if (result) {
+        //this.getCommentList();
+      }
+    });
+ }
 
   // Init function
   ngOnInit() {

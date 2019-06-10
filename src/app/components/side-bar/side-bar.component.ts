@@ -8,6 +8,7 @@ import * as _ from "lodash";
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 // To improve 
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-side-bar',
@@ -18,13 +19,15 @@ export class SideBarComponent implements OnInit {
   // New variables
   exportData: any;
   exportHappinessScoreData: any;
+  exportActionItemData: any;
   exportCommentsOptions: any;
+  exportActionItemOptions: any;
   exportScoreOptions: any;
   currentInfoUser: any;
   projectInfo: any;
 
   // Constructor
-  constructor(private dragula: DragulaService, private afs: AngularFirestore, private router: Router) {
+  constructor(private dragula: DragulaService, private afs: AngularFirestore, private modalService: BsModalService, private router: Router) {
     this.exportData = [];
     this.exportHappinessScoreData = [];
     this.exportCommentsOptions = {
@@ -45,6 +48,16 @@ export class SideBarComponent implements OnInit {
       showTitle: false,
       useBom: false,
       headers: ["Name", "Description", "Score"]
+    };
+
+    this.exportActionItemOptions = {
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true,
+      showTitle: false,
+      useBom: false,
+      headers: ["Action items", "Owner", "Created/Updated Date", "Status", "Priority"]
     };
 
     this.currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
@@ -103,6 +116,29 @@ export class SideBarComponent implements OnInit {
         setTimeout(function () {
           // Assign values to export plugin
           new Angular5Csv(_this.exportHappinessScoreData, 'Happiness score', _this.exportScoreOptions);
+        }, 100);
+      });
+  }
+
+  // To export action item list
+  downloadActionItemList() {
+    const _this = this;
+    this.exportActionItemData = [];
+    // Add firestore listerner to watch the collection
+    let meetingIdPath = this.afs.firestore.collection("meetingInfo").doc(this.currentInfoUser.meetingId);
+    meetingIdPath.collection('actionItems')
+      .get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          const data = doc.data();
+          if (data) {
+            let _tempObj = {};
+            _tempObj = { actionItem: data.comment.description, owner: data.owner.displayName, date: data.createdDate.toLocaleDateString(), status: data.status.name, priority: data.priority.name };
+            _this.exportActionItemData.push(_tempObj);
+          }
+        });
+        setTimeout(function () {
+          // Assign values to export plugin
+          new Angular5Csv(_this.exportActionItemData, 'Action items', _this.exportActionItemOptions);
         }, 100);
       });
   }

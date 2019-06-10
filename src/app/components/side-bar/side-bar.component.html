@@ -61,7 +61,7 @@
     <!-- Settings tab content -->
     <div class="tab-pane active" id="control-sidebar-settings-tab">
       <form method="post">
-        <h3 class="control-sidebar-heading">Export Settings</h3>
+        <h3 class="control-sidebar-heading">Export options</h3>
         <div class="form-group">
           <label class="control-sidebar-subheading downloadLink" (click)="downloadCommentsList()">
             Download retro comments
@@ -70,6 +70,7 @@
             Help you to download retro comments in excel file
           </p>
         </div>
+
         <div class="form-group">
           <label class="control-sidebar-subheading downloadLink" (click)="downloadHappinessScore()">
             Download happiness score
@@ -78,15 +79,15 @@
             Help you to download sprint happiness score in excel file
           </p>
         </div>
-        <h3 class="control-sidebar-heading">Credits</h3>
         <div class="form-group">
-          <label class="control-sidebar-subheading">
-            Retro themes and contents
+          <label class="control-sidebar-subheading downloadLink" (click)="downloadActionItemList()">
+            Download Action item list
           </label>
           <p>
-            https://luis-goncalves.com/
+            Help you to export action item list in excel file
           </p>
         </div>
+        <h3 class="control-sidebar-heading">Credits</h3>
         <div class="form-group">
           <label class="control-sidebar-subheading">
             Flat icons

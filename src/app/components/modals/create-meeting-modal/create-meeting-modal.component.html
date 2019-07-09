@@ -1,0 +1,61 @@
+<form name="meetingForm" class="create-meeting-form" (ngSubmit)="f.form.valid && scheduleMeeting()" #f="ngForm" novalidate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      <span *ngIf="!showRetroLink">Create retrospective meeting</span>
+      <span *ngIf="showRetroLink">Retrospective web link</span>
+    </h4>
+    <button type="button" class="close pull-right" data-dismiss="modal" (click)="hideConfirmationModal()">
+      <i class="fa fa-close comment-close-icon" title="Close"></i>
+    </button>
+  </div>
+  <div class="modal-body comment-modal-body">
+    <div class="retro-create-cntr" *ngIf="!showRetroLink">
+      <span class="guide-text"> Provide some basic information about project, select the retro format and generate your retro board</span>
+      <div class="form-group row">
+        <label for="project_name" class="col-md-3 create-retro-label">Project name</label>
+        <div class="col-md-7">
+          <input type="text" class="form-control project-name" [(ngModel)]="userInfo.projectName" #projectName="ngModel" name="projectName"
+            [ngClass]="{ 'has-error': f.submitted && !projectName.valid }" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="currentSprint" class="col-md-3 create-retro-label">Current sprint</label>
+        <div class="col-md-2">
+          <input type="number" name="quantity" min="1" max="25" class="form-control" [(ngModel)]="userInfo.currentSprint" #currentSprint="ngModel"
+            name="currentSprint" [ngClass]="{ 'has-error': f.submitted && !currentSprint.valid }" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="currentSprint" class="col-md-3 create-retro-label">Team count</label>
+        <div class="col-md-2">
+          <input type="number" name="quantity" min="1" max="25" class="form-control" [(ngModel)]="userInfo.totalTeamCount" #totalTeamCount="ngModel"
+            name="totalTeamCount" [ngClass]="{ 'has-error': f.submitted && !totalTeamCount.valid }" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="themeFormat" class="col-md-3 create-retro-label">Retro format</label>
+        <div class="col-md-6">
+          <select class="form-control" name="commentType" [(ngModel)]="selectedTheme">
+            <option *ngFor="let theme of themeOptions" [ngValue]="theme">{{theme.name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="retro-cntnr" *ngIf="showRetroLink">
+      <div class="clearfix field-div">
+        <div class="pull-left retroLink-text">
+          <span class="form-label">Share this unique link with your team</span>
+        </div>
+        <div class="pull-left retro-textBox">
+          <input type="text" class="text-input retro-textBox-width" readonly id="retroLink" [(ngModel)]="retroLink" name="retroLink" />
+          <button class="button button-primary modal-btn retro-link-btn" type="button" data-dismiss="modal" (click)="copyTextBoard()">{{copyButtonText}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer" *ngIf="!showRetroLink">
+    <div class="buttons-combined pull-right">
+      <button class="button button-primary modal-btn" type="submit" data-dismiss="modal">Create</button>
+    </div>
+  </div>
+</form>

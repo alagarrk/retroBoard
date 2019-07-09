@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
 import { RouterModule, Routes } from '@angular/router'
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
@@ -25,11 +26,13 @@ import { AddKudosModalComponent } from './components/modals/add-kudos/add-kudos.
 
 import { HappinessScoreModalComponent } from './components/modals/happiness-score-modal/happiness-score-modal.component';
 import { ActionItemModalComponent } from './components/modals/action-item-modal/action-item-modal.component';
+import { CreateMeetingModalComponent } from './components/modals/create-meeting-modal/create-meeting-modal.component';
 
 import { ConfirmationModalComponent } from './components/modals/confirmation-modal/confirmation-modal.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+
 import { NgEnterDirective } from './components/directives/ng-enter.directive';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { SmileyRatingComponent } from './components/smiley-rating/smiley-rating.component';
@@ -59,6 +62,7 @@ const appRoutes: Routes = [
     HappinessScoreModalComponent, ActionItemModalComponent,
     ConfirmationModalComponent,
     AddKudosModalComponent,
+    CreateMeetingModalComponent,
     AdminPageComponent,
     HeaderComponent,
     FooterComponent,
@@ -83,7 +87,7 @@ const appRoutes: Routes = [
   providers: [AppSharedService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
   entryComponents: [
-    HappinessScoreModalComponent, ActionItemModalComponent, AddKudosModalComponent
+    HappinessScoreModalComponent, ActionItemModalComponent, AddKudosModalComponent, CreateMeetingModalComponent, ConfirmationModalComponent
   ]
 })
 export class AppModule { }

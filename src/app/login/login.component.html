@@ -1,20 +1,66 @@
 <div class="loginContainer">
   <div class="login-block">
-    <h1>Retro board - Join with team</h1>
-    <form name="loginForm" class="login-form-style" (ngSubmit)="f.form.valid && registerUser()" #f="ngForm" novalidate>
-      <div class="text-content">
-        <i class="material-icons input-icon-style md-light md-inactive">email</i>
-        <input type="text" class="text-input username" [(ngModel)]="userInfo.userEmail" #userEmail="ngModel" placeholder="Email"
-          name="userEmail" [ngClass]="{ 'has-error': f.submitted && !userEmail.valid }" required>
-      </div>
-      <div class="text-content">
-        <i class="material-icons input-icon-style md-light md-inactive">face</i>
-        <input type="text" class="text-input username" [(ngModel)]="userInfo.userDisplayName" #userDisplayName="ngModel" placeholder="Nick/Display name"
-          name="userDisplayName" [ngClass]="{ 'has-error': f.submitted && !userDisplayName.valid }" required>
-      </div>
-      <div *ngIf="f.submitted && !userDisplayName.valid && !userEmail.valid" class="error-msg-style">Please enter valid information</div>
-      <button id="retro-login-btn" type="submit" analytics-on="click" analytics-event="Log in" analytics-category="Custom Button"
-        analytics-label="Main Menu" class="button button-wide margin-top-3">Join meeting</button>
-    </form>
+    <!-- Logo -->
+    <div class="logo logo-cntr">
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg">
+        <i class="fa fa-connectdevelop" aria-hidden="true"></i>
+        <b>Retro</b> Board</span>
+    </div>
+    <div class="login-panel" *ngIf="showLoginPanel">
+      <h1>Login to retrospective tool</h1>
+      <form name="loginForm" class="login-form-style" (ngSubmit)="f.form.valid && loginUser()" #f="ngForm" novalidate>
+        <div class="text-content">
+          <i class="material-icons input-icon-style md-light md-inactive">email</i>
+          <input type="text" class="text-input username" [(ngModel)]="userInfo.userEmail" #userEmail="ngModel" placeholder="Email"
+            name="userEmail" (focus)="loginErrorMsg=false" [ngClass]="{ 'has-error': f.submitted && !userEmail.valid }" required>
+        </div>
+        <div class="text-content">
+          <i class="material-icons input-icon-style md-light md-inactive">lock_open</i>
+          <input type="password" class="text-input username" [(ngModel)]="userInfo.userPassword" #userPassword="ngModel" placeholder="Password"
+            name="userPassword" (focus)="loginErrorMsg=false" [ngClass]="{ 'has-error': f.submitted && !userPassword.valid }"
+            required>
+        </div>
+        <div *ngIf="f.submitted && !(userPassword.valid && userEmail.valid)" class="error-msg-style">Please enter all mandatory fields</div>
+        <div *ngIf="loginErrorMsg" class="error-msg-style">Invalid user. Please contact administrator</div>
+        <button id="retro-login-btn" type="submit" analytics-on="click" analytics-event="Log in" analytics-category="Custom Button"
+          analytics-label="Main Menu" class="button button-wide margin-top-3">Login</button>
+      </form>
+    </div>
+    <div class="register-panel" *ngIf="!showLoginPanel">
+      <h1>Register to retrospective tool</h1>
+      <form name="loginForm" class="login-form-style" (ngSubmit)="f.form.valid && registerUser()" #f="ngForm" novalidate>
+        <div class="text-content">
+          <i class="material-icons input-icon-style md-light md-inactive">email</i>
+          <input type="text" class="text-input username" [(ngModel)]="userInfo.userEmail" #userEmail="ngModel" placeholder="Email"
+            name="userEmail" [ngClass]="{ 'has-error': f.submitted && !userEmail.valid }" required>
+        </div>
+        <div class="text-content">
+          <i class="material-icons input-icon-style md-light md-inactive">lock_open</i>
+          <input type="text" class="text-input username" [(ngModel)]="userInfo.userEmail" #userEmail="ngModel" placeholder="New Password"
+            name="userEmail" [ngClass]="{ 'has-error': f.submitted && !userEmail.valid }" required>
+        </div>
+        <div class="text-content">
+          <i class="material-icons input-icon-style md-light md-inactive">lock_open</i>
+          <input type="text" class="text-input username" [(ngModel)]="userInfo.userEmail" #userEmail="ngModel" placeholder="Confirm Password"
+            name="userEmail" [ngClass]="{ 'has-error': f.submitted && !userEmail.valid }" required>
+        </div>
+        <div *ngIf="f.submitted && !userPassword.valid && !userEmail.valid" class="error-msg-style">Please enter valid information</div>
+        <button id="retro-login-btn" type="submit" analytics-on="click" analytics-event="Log in" analytics-category="Custom Button"
+          analytics-label="Main Menu" class="button button-wide margin-top-3">Register</button>
+      </form>
+    </div>
+    <!-- <div class="pageLink">
+      <ng-template [ngIf]="showLoginPanel">
+        <div class="signUpLink" (click)="showLoginPanel=false">Don't have a account?
+          <span>Sign up</span>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="!showLoginPanel">
+        <div class="loginLink" (click)="showLoginPanel=true">Already have an account?
+          <span>Login here</span>
+        </div>
+      </ng-template>
+    </div> -->
   </div>
 </div>

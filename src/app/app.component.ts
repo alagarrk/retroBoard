@@ -18,11 +18,12 @@ export class AppComponent {
   route: string;
   meetingId: string;
   currentInfoUser: any = [];
+  adminUserInfo: any = [];
   // constructor(private router: Router,private appVariable: AppSharedService) {
   //   this.appVariable.showLoading = false;
   // }
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, public appVariable: AppSharedService, private location: Location) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, public appVariable: AppSharedService, private location: Location, private afs: AngularFirestore) {
     this.appVariable.showLoading = false;
   }
 
@@ -39,20 +40,8 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    const _this = this;
-    this.currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
-    if (this.currentInfoUser) {
-      this.router.navigate(['landing']);
-    } else {
-      // To get meeting-id from URL
-      this.meetingId = this.getUrlVars()["meetingId"];
-
-      // If meetingId is existing then we can redirect to entry page
-      if (this.meetingId !== undefined) {
-        this.router.navigate(['/login'], { queryParams: { meetingId: this.meetingId } });
-      } else {
-        this.router.navigate(['/admin']);
-      }
+    if(!this.location.path()){
+      this.router.navigate(['/login']);
     }
   }
 }

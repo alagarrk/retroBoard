@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { Router } from '@angular/router'
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
@@ -23,8 +23,9 @@ export class SideBarComponent implements OnInit {
   exportCommentsOptions: any;
   exportActionItemOptions: any;
   exportScoreOptions: any;
-  currentInfoUser: any;
-  projectInfo: any;
+
+  @Input() currentInfoUser: any = {};
+  @Input() projectInfo: any = {};
 
   // Constructor
   constructor(private dragula: DragulaService, private afs: AngularFirestore, private modalService: BsModalService, private router: Router) {
@@ -59,9 +60,6 @@ export class SideBarComponent implements OnInit {
       useBom: false,
       headers: ["Action items", "Owner", "Created/Updated Date", "Status", "Priority"]
     };
-
-    this.currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
-    this.projectInfo = JSON.parse(sessionStorage.getItem('projectInfo'));
   }
 
   // Download data - Comments list
@@ -144,6 +142,10 @@ export class SideBarComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+   // Listener to find document click and close logout container
+   @HostListener('document:click', ['$event']) clickedOutside($event) {
+  
   }
 
 }

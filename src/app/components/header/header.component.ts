@@ -1,6 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,15 @@ import { Location } from '@angular/common';
 export class HeaderComponent implements OnInit {
   showSettingCntr: boolean;
   currentInfoUser: any = {};
-  projectInfo: any = {};
-  
-  constructor(private router: Router, private location: Location) { }
+  adminUserInfo: any = {};
+  //projectInfo: any = {};
+  isAdmin: boolean;
+
+  @Input() projectInfo: any = {};
+  @Input() userInfo: any = {};
+
+  constructor(private router: Router, private location: Location) {
+  }
 
   // Show/Hide setting dropdown
   toggleSettingCntr($event: Event) {
@@ -23,24 +30,27 @@ export class HeaderComponent implements OnInit {
 
   // Logout user
   logoutUser() {
-    sessionStorage.removeItem('currentUserInfo');
+    sessionStorage.removeItem('adminUserInfo');
     sessionStorage.removeItem('projectInfo');
     this.router.navigate(['login']);
   }
 
   ngOnInit() {
+    this.isAdmin = false;
+    const _this = this;
+    // To get show user info in header part - If Admin page will admin user details else test user details
     if (this.location.path() === '/admin') {
-      this.router.navigate(['/admin']);
-    } else {
-      this.currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
-      if (this.currentInfoUser) {
-        this.projectInfo = JSON.parse(sessionStorage.getItem('projectInfo'));
-        this.router.navigate(['landing']);
-      } else {
-        this.router.navigate(['login']);
+      this.isAdmin = true;
+      const adminUserInfo = JSON.parse(sessionStorage.getItem('adminUserInfo'));
+      if (adminUserInfo) {
+        this.currentInfoUser = adminUserInfo;
       }
+    } else {
+      this.isAdmin = false;
+      this.currentInfoUser = _.cloneDeep(this.userInfo);
     }
   }
+
 
   // Listener to find document click and close logout container
   @HostListener('document:click', ['$event']) clickedOutside($event) {

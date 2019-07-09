@@ -1,0 +1,69 @@
+.create-retro-label {
+  float: left;
+  margin: 0.5rem;
+  font-weight: 500;
+}
+
+.modal-btn {
+  background-color: #d04a02;
+  line-height: 1.125rem;
+  cursor: pointer;
+  border: 0;
+  color: white;
+  border-radius: .125rem;
+  height: 2.625rem;
+  padding: .75rem 1.25rem;
+  font-size: 1rem;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 0.5rem;
+}
+
+.guide-text {
+  font-size: 14px;
+  float: left;
+  padding: 0rem 0 2rem 0.4rem;
+  color: #d04901;
+}
+
+.retroLink-text {
+  width: 100%;
+  font-weight: 500 !important;
+  font-size: 16px;
+  text-align: center;
+  padding: 0rem 0 2rem 0;
+  color: #d04901;
+}
+
+.retro-link-btn {
+  margin-left: 0rem;
+  margin-top: -1px;
+}
+
+.retro-cntnr {
+  width: 100%;
+  padding: 1rem 0 2rem 0rem;
+}
+
+.retro-textBox {
+  width: 100%;
+}
+
+.retro-textBox-width {
+  width: 82%;
+  height: 2.5rem;
+  border: 1px solid #e2e1e1;
+  margin-left: 0.8rem;
+  padding: 0 0.5rem;
+}
+
+.has-error {
+  border: 1px solid #E0301E !important;
+}
+
+.error-msg-style {
+  margin: 0 0 1rem 0 !important;
+  color: #e0301e;
+  font-size: 12px;
+}

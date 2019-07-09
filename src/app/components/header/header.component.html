@@ -21,7 +21,7 @@
             <!-- hidden-xs hides the username on small devices so only the image appears. -->
             <span class="hidden-xs">{{currentInfoUser.displayName}}</span>
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" *ngIf="projectInfo">
             <!-- The user image in the menu -->
             <li class="user-header">
               <img src="assets/avator.png" class="img-circle" alt="User Image">
@@ -43,7 +43,7 @@
           </ul>
         </li>
         <!-- Control Sidebar Toggle Button -->
-        <li>
+        <li *ngIf="!isAdmin">
           <a data-toggle="control-sidebar">
             <i class="fa fa-gears"></i>
           </a>

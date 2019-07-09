@@ -38,7 +38,6 @@ export class SmileyRatingComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.userHappinessScore);
   }
 
 }

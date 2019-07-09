@@ -3,6 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AppSharedService } from '../../shared.service';
 import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import { HttpModule } from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -19,13 +22,16 @@ export class LoginComponent {
   userEmail: string;
   userName: string;
   userDisplayName: string;
+
   userInfo: any = {};
   roleList: any = [];
   selectedRole: any = {};
+
   classNames: string;
   meetingId: string;
   projectInfo: string;
-  
+  showLoginPanel: boolean;
+  loginErrorMsg: boolean;
 
   constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router, private appVariable: AppSharedService) {
     this.classNames = 'loginContainer';
@@ -33,10 +39,46 @@ export class LoginComponent {
     this.roleList = [{ name: 'team-lead', value: "Team lead", roleId: 2 }, { name: 'front-end', value: "Front end developer", roleId: 2 }, { name: 'back-end', value: "Back end developer", roleId: 2 },
     { name: 'db', value: "Database developer", roleId: 2 }, { name: 'scrum-master', value: "Scrum master", roleId: 1 }, { name: 'product-owner', value: "Product owner", roleId: 2 }, { name: 'manager', value: "Manager", roleId: 2 }];
     this.selectedRole = this.roleList[0];
+    this.showLoginPanel = true;
+    this.loginErrorMsg = false;
   }
 
+  // Login feature
+  loginUser() {
+    const _this = this;
+    if (this.userInfo.userEmail !== null && this.userInfo.userPassword !== null) {
+      // To valid the user
+      firebase.auth().signInWithEmailAndPassword(this.userInfo.userEmail, this.userInfo.userPassword)
+        .then(function () {
+          _this.getRetroUserInfo(_this.userInfo.userEmail);
+        })
+        .catch(function (error) {
+          _this.loginErrorMsg = true;
+        });
+    }
+  }
+
+  // Get registered User info
+  getRetroUserInfo(userId) {
+    const _this = this;
+    this.afs.firestore.collection('retroUserInfo').doc(userId).get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log("User information doesn't exist!");
+        } else {
+          let retroUserDetails = doc.data();
+          sessionStorage.setItem('adminUserInfo', JSON.stringify(retroUserDetails));
+          _this.router.navigate(['/admin']);
+        }
+      })
+      .catch(err => {
+        console.log('Error getting user info', err);
+      });
+  }
+
+  // Register feature
   registerUser() {
-    const userList = this.afs.collection('meetingInfo').doc(this.meetingId);
+    const userList = this.afs.collection('userInfo').doc(this.meetingId);
     const currentInstance = this;
     this.appVariable.showLoading = true;
     userList.collection('userList').doc(this.userInfo.userEmail).set(
@@ -50,7 +92,7 @@ export class LoginComponent {
           'email': currentInstance.userInfo.userEmail,
           'displayName': currentInstance.userInfo.userDisplayName,
           'role': currentInstance.selectedRole,
-          'meetingId':currentInstance.meetingId
+          'meetingId': currentInstance.meetingId
         }));
         currentInstance.appVariable.showLoading = false;
         currentInstance.router.navigate(['landing']);
@@ -92,20 +134,10 @@ export class LoginComponent {
   }
 
   ngOnInit() {
-    // To get meeting-id from URL
-    this.meetingId = this.getUrlVars()["meetingId"];
-
-    // If meetingId is existing then we can redirect to entry page
-    if (this.meetingId !== undefined) {
-      const currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
-      if (currentInfoUser) {
-        this.router.navigate(['landing']);
-      } else {
-        this.checkMeetingId(this.meetingId);
-        this.router.navigate(['/login'], { queryParams: { meetingId: this.meetingId } });
-      }
-    } else {
+    // Check userInfo else redirect to login page
+    const adminUserInfo = JSON.parse(sessionStorage.getItem('adminUserInfo'));
+    if (adminUserInfo) {
       this.router.navigate(['/admin']);
-    }
+    } 
   }
 }

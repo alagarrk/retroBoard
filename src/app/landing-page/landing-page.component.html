@@ -1,8 +1,8 @@
-<div class="wrapper">
-  <app-header></app-header>
+<div class="wrapper" *ngIf="projectInfo">
+  <app-header [projectInfo]="projectInfo" [userInfo]="currentInfoUser"></app-header>
 
   <!-- Content Wrapper. Contains Start, Stop & Continue retro theme content -->
-  <div class="content-wrapper" *ngIf="projectInfo.retroTheme.id===0">
+  <div class="content-wrapper" *ngIf="projectInfo.retroTheme && projectInfo.retroTheme.id===0">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -225,7 +225,7 @@
   <!-- /.content-wrapper -->
 
   <!-- Content Wrapper.Content Wrapper. Contains Appreciation - Kudo card theme content -->
-  <div class="content-wrapper" *ngIf="projectInfo.retroTheme.id===1">
+  <div class="content-wrapper" *ngIf="projectInfo.retroTheme && projectInfo.retroTheme.id===1">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -304,7 +304,7 @@
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
-  <app-side-bar></app-side-bar>
+  <app-side-bar [projectInfo]="projectInfo" [currentInfoUser]="currentInfoUser"></app-side-bar>
   <!-- /.control-sidebar -->
 </div>
 <!-- Floating button -->

@@ -124,3 +124,62 @@
 .admin-block button:hover {
   background: #d04a02;
 }
+
+.admin-page .content-wrapper {
+  margin-left: 32px;
+  background-color: transparent;
+}
+
+.box.box-primary.orange-color {
+  border-top-color: #d7d7d7;
+}
+
+.nav-tabs-custom>.nav-tabs>li.active {
+  border-top-color: #d7d7d7;
+}
+
+.btn-orange-color {
+  background-color: #d04901;
+  border-color: #d04901;
+}
+
+/* Timeline styles */
+
+.timeline {
+  float: left;
+  margin: 0;
+}
+
+.timeline-header>span {
+  font-weight: 600;
+  color: #d04901;
+}
+
+.highlight-text {
+  color: #d04901;
+}
+
+.retro-option {
+  float: left;
+  width: 100%;
+  padding: 0.2rem 0 0 0;
+}
+
+.retro-info {
+  margin-bottom: 0.75rem;
+}
+
+.timeline-footer {
+  padding-top: 4rem !important;
+}
+
+.progress {
+  height: 10px !important;
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.progress-bar {
+  background-color: #f2f2f2 !important;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent);
+}

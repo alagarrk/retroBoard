@@ -31,6 +31,7 @@ interface cmdId extends Comment {
 
 export class LandingPageComponent {
   showMoreInfo: boolean;
+  meetingId: string;
   // Id = 0; Start, Stop & Continue theme
   commentsCol: AngularFirestoreCollection<Comment>;
   commentList: any;
@@ -66,13 +67,6 @@ export class LandingPageComponent {
 
   constructor(private dragula: DragulaService, private afs: AngularFirestore, private modalService: BsModalService, private router: Router) {
     this.showMoreInfo = false;
-    // Id = 0; Start, Stop & Continue theme
-    this.projectInfo = JSON.parse(sessionStorage.getItem('projectInfo'));
-    if (this.projectInfo.retroTheme.id === 0) {
-      this.initSCThemeVariable();
-    } else if (this.projectInfo.retroTheme.id === 1) {
-      this.initKudoThemeVariable();
-    }
   }
   // Show Happiness score modal popup
   openHappinessScoreModal() {
@@ -263,7 +257,7 @@ export class LandingPageComponent {
   }
   // Start, Stop & Continue theme - Ends
 
-  showActionItemList(){
+  showActionItemList() {
     // Show edit comments in modal popup
     const modal = this.modalService.show(ActionItemModalComponent, { class: 'ai-modal-popup-style' });
     (<ActionItemModalComponent>modal.content).onClose.subscribe(result => {
@@ -271,20 +265,55 @@ export class LandingPageComponent {
         //this.getCommentList();
       }
     });
- }
+  }
 
-  // Init function
-  ngOnInit() {
-    const _this = this;
-    this.currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
-    if (this.currentInfoUser) {
-      this.router.navigate(['landing']);
-    } else {
-      this.router.navigate(['login']);
+  // Read a page's GET URL variables and return them as an associative array.
+  getUrlVars() {
+    let vars = [], hash;
+    let hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (let i = 0; i < hashes.length; i++) {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
     }
+    return vars;
+  }
 
-    this.meetingInfo = this.afs.collection("meetingInfo").doc(this.projectInfo.meetingId);
+  /* To check meeting is exist or not. Also get meeting information */
+  checkMeetingId(meetingId) {
+    //const _this = this;
+    let meetingRef = this.afs.firestore.collection('meetingInfo').doc(meetingId);
+    let getDoc = meetingRef.get()
+      .then(doc => {
+        if (!doc.exists) {
+          this.router.navigate(['/login']);
+        } else {
+          // To get project information and store it in sessionStorage
+          let projectInfo = doc.data();
+          this.meetingId = meetingId;
+          projectInfo['meetingId'] = meetingId;
+          sessionStorage.setItem('projectInfo', JSON.stringify(projectInfo));
+          // // Id = 0; Start, Stop & Continue theme
+          if (projectInfo.retroTheme.id === 0) {
+            this.initSCThemeVariable();
+          } else if (projectInfo.retroTheme.id === 1) {
+            this.initKudoThemeVariable();
+          }
 
+          this.projectInfo = _.cloneDeep(projectInfo);
+          this.meetingInfo = this.afs.collection("meetingInfo").doc(this.projectInfo.meetingId);
+          // To get retro comment list
+          this.getRetroCommentInfo();
+        }
+      })
+      .catch(err => {
+        console.log('Error getting document', err);
+      });
+  }
+
+  // To get retro comments list
+  getRetroCommentInfo() {
+    const _this = this;
     // Add firestore listerner to watch the collection
     this.afs.firestore.collection("meetingInfo").doc(this.projectInfo.meetingId).collection('comments')
       .onSnapshot(function (querySnapshot) {
@@ -308,5 +337,46 @@ export class LandingPageComponent {
           }
         });
       });
+  }
+
+  // Init function
+  ngOnInit() {
+    const _this = this;
+    // To get meeting-id from URL
+    this.meetingId = this.getUrlVars()["meetingId"];
+
+    // If meetingId is existing then we can redirect to entry page
+    if (this.meetingId !== undefined) {
+      this.checkMeetingId(this.meetingId);
+      const userList = this.afs.collection("meetingInfo").doc(this.meetingId);
+      // To generate random users
+      this.currentInfoUser = JSON.parse(sessionStorage.getItem('currentUserInfo'));
+      if (!this.currentInfoUser) {
+        const dynamicUser = {
+          'userid': `testUser_${Math.floor((1 + Math.random()) * 0x100)}`,
+          'email': `testuser.${Math.floor((1 + Math.random()) * 0x100)}@retro.com`,
+          'displayName': `TestUser_${Math.floor((1 + Math.random()) * 0x100)}`,
+          'role': 'Team member',
+          'meetingId': this.meetingId
+        };
+        // Insert dynamic user details in UserList Table 
+        userList.collection('userList').doc(dynamicUser.email).set(
+          {
+            'email': dynamicUser.email,
+            'displayName': dynamicUser.displayName,
+            'role': dynamicUser.role
+          }).then(function () { // Success - function
+            // store user Info in local storage to keep user logged in between page refreshes
+
+            sessionStorage.setItem('currentUserInfo', JSON.stringify(dynamicUser));
+          })
+          .catch(function (error) { // If there is any issue
+            console.error("Error writing document: ", error);
+          });
+        _this.currentInfoUser = _.cloneDeep(dynamicUser);
+      }
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 }

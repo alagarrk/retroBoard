@@ -38,21 +38,31 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { SmileyRatingComponent } from './components/smiley-rating/smiley-rating.component';
 
 // Firebase credentials - Setup
-var firebaseConfig = {
+// 0 - Live; 1 - Dev
+var firebaseConfig = [{
   apiKey: "AIzaSyD_IB4qwyLrmPD0sqz5IzUvq58Yokp7mXY",
   authDomain: "retroboard-app-a9316.firebaseapp.com",
   databaseURL: "https://retroboard-app-a9316.firebaseio.com",
   projectId: "retroboard-app-a9316",
   storageBucket: "retroboard-app-a9316.appspot.com",
   messagingSenderId: "227208529026"
-};
+}, {
+  apiKey: "AIzaSyD4wI5udZfJaMm79MbR_oh3Qv2z_ShTToI",
+  authDomain: "retroboard-dev-183c8.firebaseapp.com",
+  databaseURL: "https://retroboard-dev-183c8.firebaseio.com",
+  projectId: "retroboard-dev-183c8",
+  storageBucket: "",
+  messagingSenderId: "515006758305",
+  appId: "1:515006758305:web:51f82e7857219b29"
+}];
 
+// Have 3 isLocal variables - app.module/adminPage/CreateMeetingModal
+const isLocal = false;
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'landing', component: LandingPageComponent },
   { path: 'admin', component: AdminPageComponent }
 ];
-
 
 @NgModule({
   declarations: [
@@ -73,7 +83,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule, OrderModule,
     FormsModule, HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(isLocal ? firebaseConfig[1] : firebaseConfig[0]),
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     RouterModule.forRoot(appRoutes),

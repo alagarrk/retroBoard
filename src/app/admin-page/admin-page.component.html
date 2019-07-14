@@ -15,8 +15,8 @@
           <div class="box box-primary orange-color">
             <div class="box-body box-profile">
               <img class="profile-user-img img-responsive img-circle" src="../../assets/avator.png" alt="User profile picture">
-              <h3 class="profile-username text-center">Alagar Raja K</h3>
-              <p class="text-muted text-center">Team lead</p>
+              <h3 class="profile-username text-center">{{adminUserInfo.name}}</h3>
+              <p class="text-muted text-center">{{adminUserInfo.role}}</p>
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
                   <b>Retro meetings</b>
@@ -67,7 +67,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12" *ngIf="!showLoadingBar">
+                    <div class="col-md-12" *ngIf="!showLoadingBar && retroList.length > 0">
                       <!-- The time line -->
                       <ul class="timeline" *ngFor="let retroInfo of (retroList| orderBy:'createdDate':true ); index as i">
                         <!-- timeline time label -->
@@ -116,6 +116,10 @@
                       </ul>
 
                     </div>
+                    <div class="col-md-12 noDataFound" *ngIf="!showLoadingBar && retroList.length === 0">
+                      No data found
+                    </div>
+
                     <!-- /.col -->
                   </div>
                   <!-- /.row -->
